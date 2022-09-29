@@ -1,0 +1,26 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Funcionário</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    <dev class="container">
+        <h1>Login Funcionário</h1>
+        {% bootstrap_messages %}
+
+        <form action="{% url 'login_funcionario' %}" method="post" class="form" autocomplete="off">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Logar</button>
+            {% endbuttons %}
+        </form>
+    </dev>
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>
