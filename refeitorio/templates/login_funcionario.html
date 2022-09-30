@@ -13,7 +13,7 @@
         <h1>Login Funcionário</h1>
         {% bootstrap_messages %}
 
-        <form action="{% url 'login_funcionario' %}" method="post" class="form" autocomplete="off">
+        <form action="{% url 'login_funcionario' %}" method="POST" class="form" autocomplete="off">
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}

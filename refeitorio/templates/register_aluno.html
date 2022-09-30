@@ -13,7 +13,7 @@
 		<h1>Registrar Aluno</h1>
         {% bootstrap_messages %}
 
-        <form action="{% url 'register_aluno' %}" method="post" class="form" autocomplete="off">
+        <form action="{% url 'register_aluno' %}" method="POST" class="form" autocomplete="off">
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}

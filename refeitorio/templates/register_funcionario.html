@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registro de Aluno</title>
+	<title>Registro de Funcionário</title>
 	{% bootstrap_css %}
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<h1>Registrar Funcionário</h1>
         {% bootstrap_messages %}
 
-        <form action="{% url 'register_funcionario' %}" method="post" class="form" autocomplete="off">
+        <form action="{% url 'register_funcionario' %}" method="POST" class="form" autocomplete="off">
             {% csrf_token %}
             {% bootstrap_form form %}
             {% buttons %}
