@@ -40,6 +40,7 @@ def register_aluno(request):
 
     if request.method == "POST" and form.is_valid():
         form.save()
+        return redirect('/login/aluno/')
 
     context = {
         'form': form,
@@ -51,6 +52,7 @@ def register_funcionario(request):
 
     if request.method == "POST" and form.is_valid():
         form.save()
+        return redirect('/login/funcionario')
 
     context = {
         'form': form,
