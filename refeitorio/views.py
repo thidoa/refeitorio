@@ -2,7 +2,6 @@ from multiprocessing import context
 from django.shortcuts import render, redirect
 from .models import Aluno, Funcionario
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
-from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 
