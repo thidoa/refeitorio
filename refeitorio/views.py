@@ -9,13 +9,34 @@ from django.contrib.auth.hashers import make_password, check_password
 def index(request):
     return render(request, 'index.html')
 
-# Modifiquei o login_aluno e o register aluno de acordo com as outras alterações
+def home_aluno(request):
+    aluno = request.user
+
+    if aluno.is_authenticated:
+        context = {
+            "nome": aluno.username
+        }
+        return render(request, 'home_aluno.html', context)
+    else:
+        return render(request, 'index.html')
+
+def home_funcionario(request):
+    funcionario = request.user
+
+    if funcionario.is_authenticated:
+        context = {
+            "nome": funcionario.username
+        }
+        return render(request, 'home_funcionario.html', context)
+    else:
+        return render(request, 'index.html')
 
 def login_aluno(request):
     form = AlunoLogin(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
         form.login(request)
+        return redirect('/home/aluno/')
 
     context = {
         'form': form,
@@ -28,6 +49,7 @@ def login_funcionario(request):
 
     if request.method == "POST" and form.is_valid():
         form.login(request)
+        return redirect('/home/funcionario/')
 
     context = {
         'form': form,
