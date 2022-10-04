@@ -1,5 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from .models import Aluno, Funcionario
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
 
@@ -7,6 +8,10 @@ from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegis
 
 def index(request):
     return render(request, 'index.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 def home_aluno(request):
     aluno = request.user
@@ -17,7 +22,7 @@ def home_aluno(request):
         }
         return render(request, 'home_aluno.html', context)
     else:
-        return render(request, 'index.html')
+        return redirect('/')
 
 def home_funcionario(request):
     funcionario = request.user
@@ -28,7 +33,7 @@ def home_funcionario(request):
         }
         return render(request, 'home_funcionario.html', context)
     else:
-        return render(request, 'index.html')
+        return redirect('/')
 
 def login_aluno(request):
     form = AlunoLogin(request.POST or None)
