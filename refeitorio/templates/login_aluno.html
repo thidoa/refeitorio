@@ -1,4 +1,5 @@
 {% load bootstrap4 %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,17 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Aluno</title>
     {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Login Aluno</h1>
         {% bootstrap_messages %}
 
-        <form action="{% url 'login_aluno' %}" method="POST" class="form" autocomplete="off">
+        <form action="{% url 'login_aluno' %}" method="POST" class="form box" autocomplete="off">
             {% csrf_token %}
+            <div class="image">
+                <img src="https://estudante.ifpb.edu.br/static/ps/imagens/ifpb-vertical.png" alt="">
+            </div>
+            <h1>Login Aluno</h1>
             {% bootstrap_form form %}
             {% buttons %}
-                <button type="submit" class="btn btn-primary">Logar</button>
+                <button type="submit" class="btn btn-success">Logar</button>
             {% endbuttons %}
         </form>
     </div>
