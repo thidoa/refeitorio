@@ -46,7 +46,7 @@ class FuncionarioRegister(forms.Form):
 		funcionario.save()
 
 class FuncionarioLogin(forms.Form):
-	matricula = forms.CharField(label='Matrícula', max_length=255, required=True)
+	siap = forms.CharField(label='Siap', max_length=255, required=True)
 	senha = forms.CharField(label="Senha", strip=False, widget=forms.PasswordInput(), required=True)
 
 	def login(self, request):
