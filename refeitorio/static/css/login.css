@@ -53,7 +53,7 @@ body {
     display: block;
     margin: 5px auto 20px auto;
     border: 2px solid #33790b;
-    color: #33790b;
+    color: #fff;
     transition: 0.25s;
 }
 
@@ -62,7 +62,7 @@ body {
 }
 
 .box input::placeholder {
-    color: #33790b;
+    color: #fff;
 }
 
 .box input:focus {
