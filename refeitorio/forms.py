@@ -52,8 +52,8 @@ class FuncionarioLogin(forms.Form):
 	def login(self, request):
 		data = self.cleaned_data
 
-		if Funcionario.objects.filter(username=data['matricula']).exists():
-			funcionario = auth.authenticate(request, username=data['matricula'], password=data['senha'])
+		if Funcionario.objects.filter(username=data['siap']).exists():
+			funcionario = auth.authenticate(request, username=data['siap'], password=data['senha'])
 			if funcionario != None:
 				auth.login(request, funcionario)
 				print('Funcionario Logado')

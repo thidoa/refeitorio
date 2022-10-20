@@ -9,38 +9,37 @@ from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegis
 def index(request):
     return render(request, 'index.html')
 
+def home(request):
+    usuario = request.user
+
+    if usuario.is_authenticated:
+        if hasattr(usuario, 'aluno'):
+            aluno = Aluno.objects.get(id=usuario.id)
+            print(aluno.quentinha['segunda'])
+            context = {
+                "nome": aluno.nome,
+            }
+            return render(request, 'home_aluno.html', context)
+        elif hasattr(usuario, 'funcionario'):
+            context = {
+                "nome": usuario.username
+            }
+            return render(request, 'home_funcionario.html', context)
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
+
 def logout_view(request):
     logout(request)
     return redirect('/')
-
-def home_aluno(request):
-    aluno = request.user
-
-    if aluno.is_authenticated:
-        context = {
-            "nome": aluno.username
-        }
-        return render(request, 'home_aluno.html', context)
-    else:
-        return redirect('/')
-
-def home_funcionario(request):
-    funcionario = request.user
-
-    if funcionario.is_authenticated:
-        context = {
-            "nome": funcionario.username
-        }
-        return render(request, 'home_funcionario.html', context)
-    else:
-        return redirect('/')
 
 def login_aluno(request):
     form = AlunoLogin(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
         form.login(request)
-        return redirect('/home/aluno/')
+        return redirect('/home/')
 
     context = {
         'form': form,
@@ -53,7 +52,7 @@ def login_funcionario(request):
 
     if request.method == "POST" and form.is_valid():
         form.login(request)
-        return redirect('/home/funcionario/')
+        return redirect('/home/')
 
     context = {
         'form': form,
