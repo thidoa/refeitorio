@@ -15,9 +15,16 @@ def home(request):
     if usuario.is_authenticated:
         if hasattr(usuario, 'aluno'):
             aluno = Aluno.objects.get(id=usuario.id)
-            print(aluno.quentinha['segunda'])
+            quent = aluno.quentinha
+            quent_context = {}
+
+            for quents, value in quent.items():
+                quent_context[quents.capitalize()+'-feira'] = value
+
             context = {
                 "nome": aluno.nome,
+                "matricula": aluno.username,
+                "quentinhas": quent_context
             }
             return render(request, 'home_aluno.html', context)
         elif hasattr(usuario, 'funcionario'):
@@ -25,10 +32,7 @@ def home(request):
                 "nome": usuario.username
             }
             return render(request, 'home_funcionario.html', context)
-        else:
-            return redirect('/')
-    else:
-        return redirect('/')
+    return redirect('/')
 
 def logout_view(request):
     logout(request)
