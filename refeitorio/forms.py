@@ -36,7 +36,7 @@ class AlunoLogin(forms.Form):
 
 class FuncionarioRegister(forms.Form):
 	nome = forms.CharField(label='Nome', required=True)
-	username = forms.CharField(label='Matrícula', required=True)
+	username = forms.CharField(label='Siap', required=True)
 	senha = forms.CharField(label="Senha", strip=False, widget=forms.PasswordInput(), required=True)
 
 	def save(self):
