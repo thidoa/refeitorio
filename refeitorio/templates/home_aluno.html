@@ -4,12 +4,31 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home_aluno.css' %}">
 	<title>Aluno</title>
 </head>
 <body>
-	<h1>{{ nome }}</h1>
-	
-	<a href="/logout/">Logout</a>
+	<main>
+		<h1>{{ nome }}</h1>
+		<h3>{{ matricula }}</h3>
+
+		<form method="POST" action="{% url 'home' %}">
+			<label>Pegar</label>
+			<br>
+
+			{% for quentinha, value in quentinhas.items %}
+				<label>{{ quentinha }}</label>
+				{% if value == "0" %}
+					<input type="checkbox" name="{{ quentinha }}" value="1">
+				{% else %}
+					<input type="checkbox" name="{{ quentinha }}" value="1" checked>
+				{% endif %}
+				<br>
+			{% endfor %}
+			<button type="submit">Salvar</button>
+		</form>
+
+		<button><a href="/logout/">Sair</a></button>
+	</main>
 </body>
 </html>
