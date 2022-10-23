@@ -10,11 +10,11 @@ class AlunoRegister(forms.Form):
 
 	def save(self):
 		quentinha = {
-			"segunda": "0",
-			"terça": "0",
-			"quarta": "0",
-			"quinta": "0",
-			"sexta": "0",
+			"Segunda-feira": "0",
+			"Terça-feira": "0",
+			"Quarta-feira": "0",
+			"Quinta-feira": "0",
+			"Sexta-feira": "0",
 		}
 		data = self.cleaned_data
 		senha_encriptada = encriptar_senha(data['senha'])
