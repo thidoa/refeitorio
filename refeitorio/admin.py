@@ -3,5 +3,10 @@ from .models import Aluno, Funcionario
 
 # Register your models here.
 
-admin.site.register(Aluno)
-admin.site.register(Funcionario)
+@admin.register(Aluno)
+class AlunoAdmin(admin.ModelAdmin):
+	list_display = ('nome', 'username')
+
+@admin.register(Funcionario)
+class FuncionarioAdmin(admin.ModelAdmin):
+	list_display = ('nome', 'username')

@@ -8,6 +8,12 @@ class Aluno(User):
 	nome = models.CharField('Nome', max_length=255)
 	quentinha = models.JSONField()
 
+	def __str__(self):
+		return self.nome
+
 class Funcionario(User):
 	User.username = models.CharField('Siap', max_length=255)
 	nome = models.CharField('Nome', max_length=255)
+
+	def __str__(self):
+		return self.nome
