@@ -13,17 +13,15 @@
 		<h3>{{ matricula }}</h3>
 
 		<form method="POST" action="{% url 'home' %}">
-			<label>Pegar</label>
-			<br>
-
 			{% for quentinha, value in quentinhas.items %}
-				<label>{{ quentinha }}</label>
-				{% if value == "0" %}
-					<input type="checkbox" name="{{ quentinha }}" value="1">
-				{% else %}
-					<input type="checkbox" name="{{ quentinha }}" value="1" checked>
-				{% endif %}
-				<br>
+				<div class="box">
+					{% if value == "0" %}
+						<input type="checkbox" name="{{ quentinha }}" value="1" id="{{ quentinha }}">
+					{% else %}
+						<input type="checkbox" name="{{ quentinha }}" value="1" checked id="{{ quentinha }}">
+					{% endif %}
+					<label for="{{ quentinha }}">{{ quentinha }}</label>
+				</div>
 			{% endfor %}
 			<button type="submit">Salvar</button>
 		</form>
