@@ -40,7 +40,7 @@ body {
 }
 
 .box h1 {
-    color: #33790b;
+    color: white;
     text-transform: uppercase;
     font-weight: 500;
     text-align: center;
@@ -68,7 +68,7 @@ body {
 .box input:focus {
     background: #191919;
     border: 2px solid #33790b;
-    color: #33790b;
+    color: white;
     box-shadow: 0 0 20px #33790b;
 }
 
