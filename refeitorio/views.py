@@ -19,8 +19,11 @@ def home(request):
             if request.method == 'POST':
                 dias = request.POST.getlist('dias_da_semana')
 
-                for dia in dias:
-                    aluno.quentinha[dia] = "1"
+                for dia in aluno.quentinha.keys():
+                    if dia in dias:
+                        aluno.quentinha[dia] = '1'
+                    else:
+                        aluno.quentinha[dia] = '0'
 
                 aluno.save(update_fields=['quentinha'])    
                 return redirect('/')
