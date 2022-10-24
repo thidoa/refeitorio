@@ -13,12 +13,13 @@
 		<h3>{{ matricula }}</h3>
 
 		<form method="POST" action="{% url 'home' %}">
+			{% csrf_token %}
 			{% for quentinha, value in quentinhas.items %}
 				<div class="box">
 					{% if value == "0" %}
-						<input type="checkbox" name="{{ quentinha }}" value="1" id="{{ quentinha }}">
+						<input type="checkbox" name="dias_da_semana" value="{{ quentinha }}" id="{{ quentinha }}">
 					{% else %}
-						<input type="checkbox" name="{{ quentinha }}" value="1" checked id="{{ quentinha }}">
+						<input type="checkbox" name="dias_da_semana" value="{{ quentinha }}" checked id="{{ quentinha }}">
 					{% endif %}
 					<label for="{{ quentinha }}">{{ quentinha }}</label>
 				</div>

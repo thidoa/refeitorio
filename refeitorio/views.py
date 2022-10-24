@@ -15,17 +15,22 @@ def home(request):
     if usuario.is_authenticated:
         if hasattr(usuario, 'aluno'):
             aluno = Aluno.objects.get(id=usuario.id)
-            quent = aluno.quentinha
-            quent_context = {}
 
-            for quents, value in quent.items():
-                quent_context[quents.capitalize()+'-feira'] = value
+            if request.method == 'POST':
+                dias = request.POST.getlist('dias_da_semana')
+
+                for dia in dias:
+                    aluno.quentinha[dia] = "1"
+
+                aluno.save(update_fields=['quentinha'])    
+                return redirect('/')
 
             context = {
                 "nome": aluno.nome,
                 "matricula": aluno.username,
-                "quentinhas": quent_context
+                "quentinhas": aluno.quentinha
             }
+
             return render(request, 'home_aluno.html', context)
         elif hasattr(usuario, 'funcionario'):
             context = {
@@ -81,7 +86,7 @@ def register_funcionario(request):
 
     if request.method == "POST" and form.is_valid():
         form.save()
-        return redirect('/login/funcionario')
+        return redirect('/login/funcionario/')
 
     context = {
         'form': form,
