@@ -52,7 +52,6 @@ def home(request):
             indece_semana = datetime.now().weekday()
             dia_semana = dias[indece_semana]
 
-            print(dia_semana)
             alunos_que_marcou = []
             
             for aluno in alunos:

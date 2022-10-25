@@ -1,16 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/home_funcionario.css' %}">
 	<title>Funcionário</title>
+	
 </head>
 <body>
-	<h1>Olá {{ nome }}</h1>
-	<a href="/logout/">Logout</a>
-
-	{% for aluno in alunos_que_marcou %}
-		<h1>{{ aluno.nome }}</h1>
-	{% endfor %}
+	<header>
+		<a href="/logout/">Logout</a>
+	</header>
+	<main>
+		<h1>Olá {{ nome }}!</h1>
+		<div class="container">
+			<table>
+				<tr class="thead">
+				  <th>Matrícula</th>
+				  <th>Nome</th>
+				</tr>
+				
+				{% for aluno in alunos_que_marcou %}
+					<tr>
+						<td>{{ aluno.username }}</td>
+						<td>{{ aluno.nome }}</td>
+					</tr>
+				{% endfor %}
+				
+			  </table>
+		</div>
+	</main>
 </body>
 </html>
