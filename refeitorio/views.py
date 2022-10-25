@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from .models import Aluno, Funcionario
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
+from datetime import datetime
 
 # Create your views here.
 
@@ -36,8 +37,32 @@ def home(request):
 
             return render(request, 'home_aluno.html', context)
         elif hasattr(usuario, 'funcionario'):
+            alunos = Aluno.objects.all()
+        
+            dias = [
+                'Segunda-feira',
+                'Terça-feira',
+                'Quarta-feira',
+                'Quinta-feira',
+                'Sexta-feira',
+                'Sábado',
+                'Domingo'
+            ]
+
+            indece_semana = datetime.now().weekday()
+            dia_semana = dias[indece_semana]
+
+            print(dia_semana)
+            alunos_que_marcou = []
+            
+            for aluno in alunos:
+                if(aluno.quentinha[dia_semana] == '1'):
+                    alunos_que_marcou.append(aluno)
+
+
             context = {
-                "nome": usuario.username
+                "nome": usuario.username,
+                "alunos_que_marcou": alunos_que_marcou
             }
             return render(request, 'home_funcionario.html', context)
     return redirect('/')

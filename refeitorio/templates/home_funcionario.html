@@ -8,5 +8,9 @@
 <body>
 	<h1>Olá {{ nome }}</h1>
 	<a href="/logout/">Logout</a>
+
+	{% for aluno in alunos_que_marcou %}
+		<h1>{{ aluno.nome }}</h1>
+	{% endfor %}
 </body>
 </html>

@@ -47,6 +47,8 @@ form {
 .dias_semana {
     display: flex;
     margin: 10px;
+
+    flex-wrap: wrap;
 }
 
 
@@ -115,10 +117,4 @@ input {
 
 .checkmark:focus {
     box-shadow: 0 0 5px #33790b;
-}
-
-.teste {
-    width: 0.1px;
-    background: #33790b;
-    opacity: .6;
 }

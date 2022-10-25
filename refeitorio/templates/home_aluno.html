@@ -16,7 +16,6 @@
 			{% csrf_token %}
 			<span class="dias_semana">
 				{% for quentinha, value in quentinhas.items %}
-					<span class="teste"></span>
 					<div class="box">
 						{% if value == "0" %}
 							<input class="checkmark" type="checkbox" name="dias_da_semana" value="{{ quentinha }}" id="{{ quentinha }}">
@@ -27,7 +26,6 @@
 						{% endif %}
 						<label for="{{ quentinha }}">{{ quentinha }}</label>
 					</div>
-					<span class="teste"></span>
 				{% endfor %}
 			</span>
 			<button type="submit">Salvar</button>
