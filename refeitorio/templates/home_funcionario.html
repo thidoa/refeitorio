@@ -19,12 +19,14 @@
 				<tr class="thead">
 				  <th>Matrícula</th>
 				  <th>Nome</th>
+				  <th>Presença</th>
 				</tr>
 				
 				{% for aluno in alunos_que_marcou %}
 					<tr>
 						<td>{{ aluno.username }}</td>
 						<td>{{ aluno.nome }}</td>
+						<td><input class="checkmark" type="checkbox"></td>
 					</tr>
 				{% endfor %}
 				
