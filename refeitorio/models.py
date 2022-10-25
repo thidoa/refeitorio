@@ -24,4 +24,4 @@ class Falta(models.Model):
 	data = models.DateField(default=date.today)
 
 	def __str__(self):
-		return self.aluno_faltante
+		return self.aluno_faltante.nome

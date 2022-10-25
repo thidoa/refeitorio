@@ -10,12 +10,6 @@ from datetime import datetime
 def index(request):
     return render(request, 'index.html')
 
-def falta(request, matricula):
-    aluno = Aluno.objects.get(username=matricula)
-    faltou = Falta(aluno_faltante=aluno)
-    faltou.save()
-    return redirect('/')
-
 def home(request):
     usuario = request.user
 
@@ -43,8 +37,6 @@ def home(request):
 
             return render(request, 'home_aluno.html', context)
         elif hasattr(usuario, 'funcionario'):
-            alunos = Aluno.objects.all()
-        
             dias = [
                 'Segunda-feira',
                 'Terça-feira',
@@ -58,16 +50,21 @@ def home(request):
             indece_semana = datetime.now().weekday()
             dia_semana = dias[indece_semana]
 
-            alunos_que_marcou = []
-            
-            for aluno in alunos:
-                if(aluno.quentinha[dia_semana] == '1'):
-                    alunos_que_marcou.append(aluno)
+            alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
 
+            if request.method == 'POST':
+                alunos_presentes = request.POST.getlist('alunos_presentes')
+
+                for aluno in alunos:
+                    if aluno.username not in alunos_presentes:
+                        falta = Falta(aluno_faltante=aluno)
+                        falta.save()
+                
+                return redirect('/')
 
             context = {
                 "nome": usuario.username,
-                "alunos_que_marcou": alunos_que_marcou
+                "alunos_que_marcou": alunos
             }
             return render(request, 'home_funcionario.html', context)
     return redirect('/')
