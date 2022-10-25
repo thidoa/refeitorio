@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
-from .models import Aluno, Funcionario
+from .models import Aluno, Funcionario, Falta
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
 from datetime import datetime
 
@@ -9,6 +9,12 @@ from datetime import datetime
 
 def index(request):
     return render(request, 'index.html')
+
+def falta(request, matricula):
+    aluno = Aluno.objects.get(username=matricula)
+    faltou = Falta(aluno_faltante=aluno)
+    faltou.save()
+    return redirect('/')
 
 def home(request):
     usuario = request.user
