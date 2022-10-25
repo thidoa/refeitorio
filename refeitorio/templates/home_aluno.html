@@ -14,20 +14,27 @@
 
 		<form method="POST" action="{% url 'home' %}">
 			{% csrf_token %}
-			{% for quentinha, value in quentinhas.items %}
-				<div class="box">
-					{% if value == "0" %}
-						<input type="checkbox" name="dias_da_semana" value="{{ quentinha }}" id="{{ quentinha }}">
-					{% else %}
-						<input type="checkbox" name="dias_da_semana" value="{{ quentinha }}" checked id="{{ quentinha }}">
-					{% endif %}
-					<label for="{{ quentinha }}">{{ quentinha }}</label>
-				</div>
-			{% endfor %}
+			<span class="dias_semana">
+				{% for quentinha, value in quentinhas.items %}
+					<span class="teste"></span>
+					<div class="box">
+						{% if value == "0" %}
+							<input class="checkmark" type="checkbox" name="dias_da_semana" value="{{ quentinha }}" id="{{ quentinha }}">
+							<label for="{{ quentinha }}"></label>
+						{% else %}
+							<input class="checkmark" type="checkbox" name="dias_da_semana" value="{{ quentinha }}" checked id="{{ quentinha }}">
+							<label for="{{ quentinha }}"></label>
+						{% endif %}
+						<label for="{{ quentinha }}">{{ quentinha }}</label>
+					</div>
+					<span class="teste"></span>
+				{% endfor %}
+			</span>
 			<button type="submit">Salvar</button>
 		</form>
 
 		<button><a href="/logout/">Sair</a></button>
 	</main>
+
 </body>
 </html>
