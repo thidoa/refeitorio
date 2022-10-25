@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 
@@ -17,3 +18,10 @@ class Funcionario(User):
 
 	def __str__(self):
 		return self.nome
+
+class Falta(models.Model):
+	aluno_faltante = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+	data = models.DateField(default=date.today)
+
+	def __str__(self):
+		return self.aluno_faltante
