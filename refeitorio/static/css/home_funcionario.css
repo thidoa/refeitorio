@@ -117,3 +117,21 @@ th {
 .checkmark:focus {
     box-shadow: 0 0 5px #33790b;
 }
+
+button {
+    border: 0;
+    background: transparent;
+    margin: 20px auto;
+    border: 2px solid #33790b;
+    padding: 14px 40px;
+    outline: none;
+    color: #fff;
+    border-radius: 15px;
+    transition: 0.25s;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #33790b;
+}

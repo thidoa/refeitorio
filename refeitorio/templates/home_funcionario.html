@@ -10,12 +10,14 @@
 </head>
 <body>
 	<header>
-		<a href="/logout/">Logout</a>
+		<a href="/logout/">Sair</a>
 	</header>
 	<main>
 		<h1>Olá {{ nome }}!</h1>
 		<div class="container">
-			<table>
+			<form method="POST" action="{% url 'home' %}">
+				{% csrf_token %}
+				<table>
 				<tr class="thead">
 				  <th>Matrícula</th>
 				  <th>Nome</th>
@@ -26,11 +28,12 @@
 					<tr>
 						<td>{{ aluno.username }}</td>
 						<td>{{ aluno.nome }}</td>
-						<td><input class="checkmark" type="checkbox" value="{{ aluno.username }}"></td>
+						<td><input class="checkmark" type="checkbox" value="{{ aluno.username }}" name="alunos_faltantes"></td>
 					</tr>
 				{% endfor %}
-				
 			  </table>
+			  <button type="submit">Salvar</button>
+			</form>
 		</div>
 	</main>
 </body>

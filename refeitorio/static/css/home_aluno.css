@@ -5,6 +5,32 @@ body {
     background-color: #2b2b2b;
 }
 
+header {
+    padding: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 10vh;
+}
+
+header a {
+    border: 0;
+    background: transparent;
+    text-align: center;
+    border: 2px solid #33790b;
+    padding: 14px 40px;
+    outline: none;
+    color: #fff;
+    border-radius: 15px;
+    transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+header a:hover {
+    background: #33790b;
+}
+
 main {
     color: white;
     width: 50%;
