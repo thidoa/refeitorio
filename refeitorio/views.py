@@ -37,6 +37,7 @@ def home(request):
 
             return render(request, 'home_aluno.html', context)
         elif hasattr(usuario, 'funcionario'):
+            funcionario = Funcionario.objects.get(id=usuario.id)
             dias = [
                 'Segunda-feira',
                 'Terça-feira',
@@ -63,7 +64,7 @@ def home(request):
                 return redirect('/')
 
             context = {
-                "nome": usuario.username,
+                "nome": funcionario.nome,
                 "alunos_que_marcou": alunos
             }
             return render(request, 'home_funcionario.html', context)
