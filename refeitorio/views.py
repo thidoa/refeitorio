@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from .models import Aluno, Funcionario, Falta
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
 from datetime import datetime
+from pytz import timezone
 
 # Create your views here.
 
@@ -18,6 +19,18 @@ def home(request):
             aluno = Aluno.objects.get(id=usuario.id)
 
             if request.method == 'POST':
+                hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
+                hora_limite = datetime.strptime("16:30:00", "%H:%M:%S").time()
+
+                if hora_atual > hora_limite:
+                    context = {
+                        "nome": aluno.nome,
+                        "matricula": aluno.username,
+                        "quentinhas": aluno.quentinha,
+                        "mensagem": "Não é mais possível alterar as marcações, volte antes das 16:30"
+                    }
+                    return render(request, 'home_aluno.html', context)
+
                 dias = request.POST.getlist('dias_da_semana')
 
                 for dia in aluno.quentinha.keys():
@@ -32,7 +45,8 @@ def home(request):
             context = {
                 "nome": aluno.nome,
                 "matricula": aluno.username,
-                "quentinhas": aluno.quentinha
+                "quentinhas": aluno.quentinha,
+                "mensagem": ""
             }
 
             return render(request, 'home_aluno.html', context)

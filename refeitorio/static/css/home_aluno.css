@@ -143,4 +143,10 @@ input {
 
 .checkmark:focus {
     box-shadow: 0 0 5px #33790b;
+<<<<<<< HEAD
 } */
+
+p {
+    text-align: center;
+    color: #a51d0b;
+}
