@@ -114,7 +114,7 @@ def register_aluno(request):
 
 def register_funcionario(request):
     form = FuncionarioRegister(request.POST or None)
-
+    
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect('/login/funcionario/')

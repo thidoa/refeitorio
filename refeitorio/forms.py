@@ -20,6 +20,7 @@ class AlunoRegister(forms.Form):
 		senha_encriptada = encriptar_senha(data['senha'])
 		aluno = Aluno(nome=data['nome'], username=data['username'], password=senha_encriptada, quentinha=quentinha)
 		aluno.save()
+		
 
 class AlunoLogin(forms.Form):
 	matricula = forms.CharField(label='Matrícula', max_length=255, required=True)

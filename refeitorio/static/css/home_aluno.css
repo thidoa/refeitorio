@@ -112,7 +112,7 @@ input {
     height: 20px;
 }
 
-.checkmark {
+/* .checkmark {
     cursor: pointer;
     appearance: none;
     width: 20px;
@@ -143,4 +143,4 @@ input {
 
 .checkmark:focus {
     box-shadow: 0 0 5px #33790b;
-}
+} */
