@@ -8,8 +8,11 @@
 	
 </head>
 <body>
-	{% for valor in faltas %}
-        <h1>{{ valor.aluno_faltante }}</h1>
+	{% for falta in faltas %}
+        <h1>{{ falta.data }}</h1>
+        <form action="">
+            <input type="text">
+        </form>
     {% endfor %}
 </body>
 </html>

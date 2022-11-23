@@ -6,7 +6,6 @@ from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegis
 from datetime import datetime
 from pytz import timezone
 import calendar
-import datetime
 
 # Create your views here.
 
@@ -183,11 +182,26 @@ def teste(request):
     return render(request, 'teste.html', context)
 
 def faltas(request):
-    faltas = Falta.objects.all()
+    usuario = request.user
 
-    context = {
-        'faltas': faltas,
-    }
+    if usuario.is_authenticated:
+        if hasattr(usuario, 'aluno'):
+            aluno = Aluno.objects.get(id=usuario.id)
+            
+            faltas = Falta.objects.filter(aluno_faltante=aluno)
+            print(faltas)
+            context = {
+                'faltas': faltas,
+            }
 
-    return render(request, 'faltas.html', context)
+            return render(request, 'faltas.html', context)
+
+        elif hasattr(usuario, 'funcionario'):
+            funcionario = Funcionario.objects.get(id=usuario.id)
+            
+            return render(request, 'home_funcionario.html', context)
+    return redirect('/')
+
+
+    #return render(request, 'faltas.html', context)
 
