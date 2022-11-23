@@ -5,6 +5,8 @@ from .models import Aluno, Funcionario, Falta
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
 from datetime import datetime
 from pytz import timezone
+import calendar
+import datetime
 
 # Create your views here.
 
@@ -138,3 +140,54 @@ def register_funcionario(request):
     }
 
     return render(request, 'register_funcionario.html', context)
+
+def teste(request):
+    data = datetime.datetime.now()
+
+    dia_mes_atual = []
+    dia_calendario = []
+
+    obj = calendar.Calendar(firstweekday = 6)
+    for day in obj.itermonthdays(data.year, data.month):
+        dia_mes_atual.append(day)
+        #print(day)
+
+    data_mes = calendar.Calendar(firstweekday = 6)
+    for dia in data_mes.itermonthdates(data.year, data.month):
+        data_dia = str(dia).split('-')
+        dia_calendario.append(data_dia[-1])
+
+    mes_completo = []
+
+    for valor in range(len(dia_mes_atual)):
+        mes_completo.append([dia_mes_atual[valor], dia_calendario[valor]])
+   
+    dias_semana = []
+    semana_mes =[]
+    contador = 0
+    for dia in dia_calendario:
+        if contador < 6:
+            dias_semana.append(dia)
+            contador+=1
+        else:
+            dias_semana.append(dia)
+            semana_mes.append(dias_semana)
+            dias_semana = []
+            contador = 0
+    
+    context = {
+        'dia_mes_atual': dia_mes_atual,
+        'mes': semana_mes,
+        'agora_vai': mes_completo,
+    }
+    return render(request, 'teste.html', context)
+
+def faltas(request):
+    faltas = Falta.objects.all()
+
+    context = {
+        'faltas': faltas,
+    }
+
+    return render(request, 'faltas.html', context)
+
