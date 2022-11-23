@@ -22,6 +22,7 @@ class Funcionario(User):
 class Falta(models.Model):
 	aluno_faltante = models.ForeignKey(Aluno, on_delete=models.CASCADE)
 	data = models.DateField(default=date.today)
+	justificativa = models.TextField(blank=True, null=True)
 
 	def __str__(self):
 		return self.aluno_faltante.nome
