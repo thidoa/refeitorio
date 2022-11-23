@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/teste.css' %}">
+	<title>Calendar</title>
+</head>
+<body>
+	<div class="container">
+		<div class="calendar">
+			<header>				
+				<h2 id="mes">Teste</h2>
+				<a class="btn-prev" id="btn_prev"><</a>
+				<a class="btn-next" id="btn_next">></a>
+			</header>
+			<table>
+				<thead>
+					<tr>
+						<td>DOM</td>
+						<td>SEG</td>
+						<td>TER</td>
+						<td>QUA</td>
+						<td>QUI</td>
+						<td>SEX</td>
+						<td>SAB</td>
+					</tr>
+				</thead>
+				<tbody id="dias">
+					{% for dia in agora_vai %}
+						{% if dia.0 == 0 %}
+							<td class="prev-month">{{ dia.1 }}</td>
+						{% else %}
+							<td>{{ dia.1 }}</td>
+						{% endif %}
+					{% endfor %}
+
+					<!--{{mes}}
+					{% for semana in mes %}
+						<tr>
+							{% for dia in semana %}
+							<td>{{ dia }}</td>
+
+							{% endfor %}
+						</tr>
+					{% endfor %}
+
+					 {% for semana in mes %}
+						<tr>
+							{% for dia in semana %}
+								<td>{{ dia }}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %} -->
+				<!--<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr> -->
+				</tbody>
+			</table>
+			<footer>
+				<h2 id="ano"></h2>
+			</footer>
+		</div>
+	</div>
+	
+    	<!-- {% for dia in lista_dia %}
+			{{ dia }}
+		{% endfor %} -->
+	<!-- <script src="{% static 'js/teste.js' %}"></script> -->
+</body>
+</html>
