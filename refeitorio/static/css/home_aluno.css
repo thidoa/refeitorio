@@ -112,40 +112,6 @@ input {
     height: 20px;
 }
 
-/* .checkmark {
-    cursor: pointer;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #33790b;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.checkmark:before {
-    content: "";
-    position: absolute;
-    height: 8px;
-    width: 3px;
-    opacity: 0;
-    transition: all 300ms ease-in-out;
-    border-right: 3px solid #33790b;
-    border-bottom: 3px solid #33790b;
-    transform: rotate(45deg);
-    top: 1px;
-}
-
-.checkmark:checked:before {
-    opacity: 1;
-}
-
-.checkmark:focus {
-    box-shadow: 0 0 5px #33790b;
-<<<<<<< HEAD
-} */
-
 p {
     text-align: center;
     color: #a51d0b;
