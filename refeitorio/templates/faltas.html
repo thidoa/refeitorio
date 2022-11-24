@@ -4,15 +4,22 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/faltas.css' %}">
 	<title>Faltas</title>
 	
 </head>
 <body>
-	{% for falta in faltas %}
-        <h1>{{ falta.data }}</h1>
-        <form action="">
-            <input type="text">
-        </form>
-    {% endfor %}
+    <div class="box">
+        {% for falta in faltas %}
+            <h2>{{ falta.data }}</h2>
+            <form action="">
+                <!-- <textarea placeholder="Justificativa" name="justificativa" cols="30" rows="10"></textarea> -->
+                <textarea placeholder="Justificativa" name="justificativa" required></textarea>
+                <button type="submit">Salvar</button>
+            </form>
+            <hr>
+        {% endfor %}
+    </div>
+    <script src="{% static 'js/faltas.js' %}"></script>
 </body>
 </html>
