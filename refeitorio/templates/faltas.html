@@ -12,9 +12,14 @@
     <div class="box">
         {% for falta in faltas %}
             <h2>{{ falta.data }}</h2>
-            <form action="">
-                <!-- <textarea placeholder="Justificativa" name="justificativa" cols="30" rows="10"></textarea> -->
-                <textarea placeholder="Justificativa" name="justificativa" required></textarea>
+            <form action="{% url 'faltas' %}"  method="post">
+                {% csrf_token %}
+                <input hidden value="{{ falta.id }}" name="id" type="text">
+                {% if falta.justificativa != 'None' %}
+                    <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
+                {% else %}
+                    <textarea placeholder="Justificativa" name="justificativa"></textarea>
+                {% endif %}
                 <button type="submit">Salvar</button>
             </form>
             <hr>

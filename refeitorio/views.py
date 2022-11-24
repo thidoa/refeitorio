@@ -1,5 +1,5 @@
 from multiprocessing import context
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from .models import Aluno, Funcionario, Falta
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
@@ -189,7 +189,13 @@ def faltas(request):
             aluno = Aluno.objects.get(id=usuario.id)
             
             faltas = Falta.objects.filter(aluno_faltante=aluno)
-            print(faltas)
+
+            if request.method == "POST":
+                falta = get_object_or_404(faltas, id=request.POST['id'])
+                falta.justificativa = request.POST['justificativa']
+                falta.save()
+
+            
             context = {
                 'faltas': faltas,
             }
