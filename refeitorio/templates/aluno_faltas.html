@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/faltas.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aluno_faltas.css' %}">
 	<title>Faltas</title>
 	
 </head>
@@ -12,19 +12,20 @@
     <div class="box">
         {% for falta in faltas %}
             <h2>{{ falta.data }}</h2>
-            <form action="{% url 'faltas' %}"  method="post">
+            <form action="{% url 'faltas' %}"  method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input hidden value="{{ falta.id }}" name="id" type="text">
+                <input hidden value="{{ falta.id }}" name="id_falta" type="text">
                 {% if falta.justificativa != 'None' %}
                     <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
                 {% else %}
                     <textarea placeholder="Justificativa" name="justificativa"></textarea>
                 {% endif %}
+                <input type="file" name="arquivo">
                 <button type="submit">Salvar</button>
             </form>
             <hr>
         {% endfor %}
     </div>
-    <script src="{% static 'js/faltas.js' %}"></script>
+    <script src="{% static 'js/aluno_faltas.js' %}"></script>
 </body>
 </html>

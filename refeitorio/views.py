@@ -1,6 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
+from django.core.files import File
 from .models import Aluno, Funcionario, Falta
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
 from datetime import datetime
@@ -191,8 +192,9 @@ def faltas(request):
             faltas = Falta.objects.filter(aluno_faltante=aluno)
 
             if request.method == "POST":
-                falta = get_object_or_404(faltas, id=request.POST['id'])
+                falta = get_object_or_404(faltas, id=request.POST['id_falta'])
                 falta.justificativa = request.POST['justificativa']
+                falta.arquivo = request.FILES['arquivo']
                 falta.save()
 
             
@@ -200,7 +202,7 @@ def faltas(request):
                 'faltas': faltas,
             }
 
-            return render(request, 'faltas.html', context)
+            return render(request, 'aluno_faltas.html', context)
 
         elif hasattr(usuario, 'funcionario'):
             funcionario = Funcionario.objects.get(id=usuario.id)
