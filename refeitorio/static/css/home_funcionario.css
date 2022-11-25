@@ -7,8 +7,6 @@
 }
 
 body {
-    justify-content: center;
-    align-items: center;
     background-color: #2b2b2b;;
 }
 
@@ -32,6 +30,7 @@ header a {
     transition: 0.25s;
     cursor: pointer;
     text-decoration: none;
+    margin: 10px;
 }
 
 header a:hover {

@@ -217,9 +217,20 @@ def faltas(request):
             return render(request, 'aluno_faltas.html', context)
 
         elif hasattr(usuario, 'funcionario'):
-            funcionario = Funcionario.objects.get(id=usuario.id)
+            faltas = Falta.objects.all()
+            dados = {}
             
-            return render(request, 'home_funcionario.html', context)
+            for falta in faltas:
+                if falta.aluno_faltante in dados.keys():
+                    dados[falta.aluno_faltante] += 1
+                else:
+                    dados[falta.aluno_faltante] = 1
+
+            context = {
+                'alunos': dados
+            }
+
+            return render(request, 'funcionario_faltas.html', context)
     return redirect('/')
 
 

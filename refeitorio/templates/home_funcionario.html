@@ -10,10 +10,11 @@
 </head>
 <body>
 	<header>
+		<a href="{% url 'faltas' %}">Gerenciar faltas</a>
 		<a href="/logout/">Sair</a>
 	</header>
 	<main>
-		<h1>Olá {{ nome }}!</h1>
+		<h1>FUNCIONÁRIO {{ nome }}</h1>
 		<div class="container">
 			<form method="POST" action="{% url 'home' %}">
 				{% csrf_token %}

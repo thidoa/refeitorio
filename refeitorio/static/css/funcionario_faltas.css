@@ -48,6 +48,11 @@ main {
     transition: .5s;
 }
 
+main a {
+    color: white;
+    text-decoration: none;
+}
+
 .container {
     display: flex;
     align-items: center;

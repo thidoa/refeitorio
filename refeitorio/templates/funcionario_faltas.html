@@ -12,24 +12,20 @@
 		<a href="/home/">Voltar</a>
 		<a href="/logout/">Sair</a>
 	</header>
-
 	<main>
 		<div class="container">
+			<p>Clique sobre o nome para mais informações</p>
 			<table>
 				<tr>
 					<th>Aluno</th>
 					<th>Total de faltas</th>
 				</tr>
-
-				<tr>
-					<td>Dêvid de Souza Teófilo</td>
-					<td>3</td>
-				</tr>
-
-				<tr>
-					<td>Pedro Ferreira Filho</td>
-					<td>50</td>
-				</tr>
+				{% for aluno, tot in alunos.items %}
+					<tr>
+						<td><a href="/faltas/{{ aluno.id }}" target="_blank">{{ aluno }}</a></td>
+						<td>{{ tot }}</td>
+					</tr>
+				{% endfor %}
 			</table>
 		</div>
 	</main>
