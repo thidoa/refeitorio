@@ -195,14 +195,17 @@ def faltas(request):
                 faltass = request.POST.getlist('justificativa')
                 ids = request.POST.getlist('id_falta')
                 arquivos = request.FILES.getlist('arquivo')
-                print(arquivos)
-                k = 0
+                cont = 0
 
                 for id in ids:
                     falta = Falta.objects.get(id=id)
-                    falta.justificativa = faltass[k]
-                    falta.save(update_fields=['justificativa'])
-                    k += 1
+                    falta.justificativa = faltass[cont]
+
+                    if len(arquivos) != 0:
+                        falta.arquivo = arquivos[cont]
+
+                    falta.save(update_fields=['justificativa', 'arquivo'])
+                    cont += 1
 
                 return redirect('/home/')
 
