@@ -1,25 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/falta.css' %}">
 	<title>Faltas</title>
 </head>
 <body>
 	<main>
-		<h3>Faltas de Dêvid de Souza Teófilo</h3>
-		<form action="/faltas/13" method="POST">
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sapiente id? Error maxime quo dolore dolores, quos nisi sed sapiente esse consequuntur assumenda dolorem, incidunt accusantium eius facere natus? Minus?
-			</p>
-			<button type="submit">Dar baixa</button>
-		</form>
-		<form action="/faltas/13" method="POST">
-			<p>
-				Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat deleniti, sunt labore repellendus cum exercitationem. Labore dolore reprehenderit maiores doloremque autem esse tenetur voluptas sed quisquam officiis aspernatur, consectetur ad!
-			</p>
-			<button type="submit">Dar baixa</button>
-		</form>
+		<div class="box">
+			<h3>Faltas de Dêvid de Souza Teófilo</h3>
+			<h4>23 de novembro de 2022</h4>
+			<form action="/faltas/13" method="POST">
+				<p>
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sapiente id? Error maxime quo dolore dolores, quos nisi sed sapiente esse consequuntur assumenda dolorem, incidunt accusantium eius facere natus? Minus?
+				</p>
+				<button type="submit">Dar baixa</button>
+			</form>
+
+			<hr>
+
+			<h4>24 de novembro de 2022</h4>
+			<form action="/faltas/13" method="POST">
+				<p>
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat deleniti, sunt labore repellendus cum exercitationem. Labore dolore reprehenderit maiores doloremque autem esse tenetur voluptas sed quisquam officiis aspernatur, consectetur ad!
+				</p>
+				<button type="submit">Dar baixa</button>
+			</form>
+
+			<hr>
+		</div>
 	</main>
 </body>
 </html>
