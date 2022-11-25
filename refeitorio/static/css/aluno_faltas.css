@@ -11,7 +11,7 @@ body {
     padding: 0;
     font-family: sans-serif;
     background: #2b2b2b;
-    color: #33790b;
+    color: #fff;
 }
 
 .wrapper {
@@ -35,8 +35,6 @@ body {
     resize: none;
     font-size: 16px;
     margin-top: 20px;
-    border-radius: 5px;
-    border-color: #33790b;
 }
 
 
@@ -85,7 +83,6 @@ body {
     font-size: 16px;
     margin-top: 20px;
     border-radius: 5px;
-    border-color: #33790b;
     max-height: 330px;
     background: #191919;
 }
@@ -94,7 +91,6 @@ textarea:is(:focus, :valid) {
     border-width: 2px;
     padding: 14px;
     color: white;
-    box-shadow: 0 0 20px #33790b;
 }
 
 textarea::-webkit-scrollbar {
@@ -139,6 +135,10 @@ textarea::placeholder {
 
 .box button:hover {
     background: #33790b;
+}
+
+.box input {
+    
 }
 
 @media only screen and (max-width: 1000px) {
