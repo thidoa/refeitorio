@@ -10,22 +10,22 @@
 </head>
 <body>
     <div class="box">
-        {% for falta in faltas %}
-            <h2>{{ falta.data }}</h2>
             <form action="{% url 'faltas' %}"  method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input hidden value="{{ falta.id }}" name="id_falta" type="text">
-                {% if falta.justificativa != 'None' %}
-                    <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
-                {% else %}
-                    <textarea placeholder="Justificativa" name="justificativa"></textarea>
-                {% endif %}
-                <label>Anexe um arquivo abaixo</label>
-                <input type="file" name="arquivo">
+                {% for falta in faltas %}
+                    <h2>{{ falta.data }}</h2>   
+                    {% csrf_token %}
+                    <input hidden value="{{ falta.id }}" name="id_falta" type="text">
+                    {% if falta.justificativa != 'None' %}
+                        <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
+                    {% else %}
+                        <textarea placeholder="Justificativa" name="justificativa"></textarea>
+                    {% endif %}
+                    <label>Anexe um arquivo abaixo</label>
+                    <input type="file" name="arquivo">
+                    <hr>
+                {% endfor %}
                 <button type="submit">Salvar</button>
             </form>
-            <hr>
-        {% endfor %}
     </div>
     <script src="{% static 'js/aluno_faltas.js' %}"></script>
 </body>

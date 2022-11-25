@@ -192,10 +192,19 @@ def faltas(request):
             faltas = Falta.objects.filter(aluno_faltante=aluno)
 
             if request.method == "POST":
-                falta = get_object_or_404(faltas, id=request.POST['id_falta'])
-                falta.justificativa = request.POST['justificativa']
-                falta.arquivo = request.FILES['arquivo']
-                falta.save()
+                faltass = request.POST.getlist('justificativa')
+                ids = request.POST.getlist('id_falta')
+                arquivos = request.FILES.getlist('arquivo')
+                print(arquivos)
+                k = 0
+
+                for id in ids:
+                    falta = Falta.objects.get(id=id)
+                    falta.justificativa = faltass[k]
+                    falta.save(update_fields=['justificativa'])
+                    k += 1
+
+                return redirect('/home/')
 
             
             context = {
