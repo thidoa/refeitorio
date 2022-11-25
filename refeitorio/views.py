@@ -7,6 +7,7 @@ from datetime import datetime
 from pytz import timezone
 import calendar
 import datetime
+from django.contrib import messages
 
 # Create your views here.
 
@@ -92,15 +93,17 @@ def logout_view(request):
 
 def login_aluno(request):
     form = AlunoLogin(request.POST or None)
-
+    
     if request.method == "POST" and form.is_valid():
-        form.login(request)
-        return redirect('/home/')
+        messages.error(request, 'Login realizado com sucesso!')
+        if form.login(request) == True:
+            
+            return redirect('/home/')
+        
 
     context = {
         'form': form,
     }
-
     return render(request, 'login_aluno.html', context)
 
 def login_funcionario(request):

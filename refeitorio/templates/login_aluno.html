@@ -12,8 +12,8 @@
 </head>
 <body>
     <div class="container">
-        {% bootstrap_messages %}
-
+        <!-- {% bootstrap_messages %}
+        {% include 'alertas.html' %} -->
         <form action="{% url 'login_aluno' %}" method="POST" class="form box" autocomplete="off">
             {% csrf_token %}
             <div class="image">

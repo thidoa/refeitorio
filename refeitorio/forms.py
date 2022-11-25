@@ -34,6 +34,7 @@ class AlunoLogin(forms.Form):
 			if aluno != None:
 				auth.login(request, aluno)
 				print('Aluno Logado')
+				return True
 
 class FuncionarioRegister(forms.Form):
 	nome = forms.CharField(label='Nome', required=True)
