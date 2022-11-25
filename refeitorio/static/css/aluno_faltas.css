@@ -53,14 +53,6 @@ body {
     transition: .5s;
 }
 
-.box h1 {
-    color: white;
-    text-transform: uppercase;
-    font-weight: 500;
-    text-align: right;
-    margin: 20px auto;
-}
-
 .box h2 {
     color: #fff;
     font-size: 28px;
@@ -137,8 +129,19 @@ textarea::placeholder {
     background: #33790b;
 }
 
-.box input {
-    align-items: left;
+.box input[type="file"] {
+    display: none;
+}
+
+#botaoEnviar {
+    background: transparent;
+    outline: none;
+    color: #fff;
+    transition: 0.25s;
+    cursor: pointer;
+    border: 2px solid #33790b;
+    padding: 7px 20px;
+    margin: 20px;
 }
 
 @media only screen and (max-width: 1000px) {

@@ -5,23 +5,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/aluno_faltas.css' %}">
-	<title>Faltas</title>
-	
+	<title>Suas faltas</title>
 </head>
 <body>
     <div class="box">
             <form action="{% url 'faltas' %}"  method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 {% for falta in faltas %}
-                    <h2>{{ falta.data }}</h2>   
-                    {% csrf_token %}
+                    <h2>{{ falta.data }}</h2>
                     <input hidden value="{{ falta.id }}" name="id_falta" type="text">
                     {% if falta.justificativa != 'None' %}
                         <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
                     {% else %}
                         <textarea placeholder="Justificativa" name="justificativa"></textarea>
                     {% endif %}
-                    <label>Anexe um arquivo abaixo</label>
-                    <input type="file" name="arquivo">
+                    <label for="upload" id="botaoEnviar">Enviar arquivo</label>
+                    <input type="file" name="arquivo" id="upload">
                     <hr>
                 {% endfor %}
                 <button type="submit">Salvar</button>
