@@ -233,6 +233,22 @@ def faltas(request):
             return render(request, 'funcionario_faltas.html', context)
     return redirect('/')
 
+def faltas_aluno(request, id):
+    usuario = request.user
 
-    #return render(request, 'faltas.html', context)
+    if usuario.is_authenticated and hasattr(usuario, 'funcionario'):
+        aluno = Aluno.objects.get(id=id)
+        faltas = Falta.objects.filter(aluno_faltante=aluno)
 
+        if request.method == 'POST':
+            falta = get_object_or_404(faltas, id=request.POST['id'])
+            falta.delete()
+
+        context = {
+            'faltas': faltas,
+            'id': id,
+            'aluno': aluno
+        }
+
+        return render(request, 'falta.html', context)
+    return redirect('/')

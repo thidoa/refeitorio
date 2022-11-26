@@ -10,26 +10,23 @@
 <body>
 	<main>
 		<div class="box">
-			<h3>Faltas de Dêvid de Souza Teófilo</h3>
-			<h4>23 de novembro de 2022</h4>
-			<form action="/faltas/13" method="POST">
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sapiente id? Error maxime quo dolore dolores, quos nisi sed sapiente esse consequuntur assumenda dolorem, incidunt accusantium eius facere natus? Minus?
-				</p>
-				<button type="submit">Dar baixa</button>
-			</form>
-
-			<hr>
-
-			<h4>24 de novembro de 2022</h4>
-			<form action="/faltas/13" method="POST">
-				<p>
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat deleniti, sunt labore repellendus cum exercitationem. Labore dolore reprehenderit maiores doloremque autem esse tenetur voluptas sed quisquam officiis aspernatur, consectetur ad!
-				</p>
-				<button type="submit">Dar baixa</button>
-			</form>
-
-			<hr>
+			<h3>Faltas de {{ aluno.nome }}</h3>
+			{% for falta in faltas %}
+				<h4>{{ falta.data }}</h4>
+				<form action="/faltas/{{ id }}" method="POST">
+					{% csrf_token %}
+					<input hidden value="{{ falta.id }}" name="id" type="text">
+					{% if falta.justificativa != '' %}
+						<p>
+							{{ falta.justificativa }}
+						</p>
+					{% else %}
+						<p>Sem justificativa</p>
+					{% endif %}
+					<button type="submit">Dar baixa</button>
+				</form>
+				<hr>
+			{% endfor %}
 		</div>
 	</main>
 </body>
