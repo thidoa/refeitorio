@@ -8,26 +8,25 @@
 	<title>Faltas</title>
 </head>
 <body>
-	<main>
-		<div class="box">
-			<h3>Faltas de {{ aluno.nome }}</h3>
-			{% for falta in faltas %}
-				<h4>{{ falta.data }}</h4>
-				<form action="/faltas/{{ id }}" method="POST">
-					{% csrf_token %}
-					<input hidden value="{{ falta.id }}" name="id" type="text">
-					{% if falta.justificativa != '' %}
-						<p>
-							{{ falta.justificativa }}
-						</p>
-					{% else %}
-						<p>Sem justificativa</p>
-					{% endif %}
-					<button type="submit">Dar baixa</button>
-				</form>
-				<hr>
-			{% endfor %}
-		</div>
-	</main>
+	<div class="box">
+		<h3>Faltas de {{ aluno.nome }}</h3>
+		{% for falta in faltas %}
+			<h4>{{ falta.data }}</h4>
+			<form action="/faltas/{{ id }}" method="POST">
+				{% csrf_token %}
+				<p>Justificativa:</p>
+				<input hidden value="{{ falta.id }}" name="id" type="text">
+				{% if falta.justificativa != '' %}
+					<p class="justificativa">
+						{{ falta.justificativa }}
+					</p>
+				{% else %}
+					<p class="justificativa">Sem justificativa</p>
+				{% endif %}
+				<button type="submit">Dar baixa</button>
+			</form>
+			<hr>
+		{% endfor %}
+	</div>
 </body>
 </html>
