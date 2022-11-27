@@ -13,6 +13,7 @@
                 {% csrf_token %}
                 {% for falta in faltas %}
                     <h2>{{ falta.data }}</h2>
+                    <p>Adicione a justificativa abaixo</p>
                     <input hidden value="{{ falta.id }}" name="id_falta" type="text">
                     {% if falta.justificativa != 'None' %}
                         <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
