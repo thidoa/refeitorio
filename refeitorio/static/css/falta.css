@@ -22,6 +22,7 @@ body {
 
 .box h3 {
     font-size: 23px;
+    text-align: center;
 }
 
 .box h4 {
@@ -38,6 +39,21 @@ body {
 
 .box p {
     width: 100%;
+}
+
+.box a {
+    margin-top: 20px;
+    background: transparent;
+    border: 2px solid #33790b;
+    padding: 7px 20px;
+    color: #fff;
+    transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    background: #33790b;
 }
 
 .justificativa {

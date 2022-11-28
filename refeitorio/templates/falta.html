@@ -23,6 +23,11 @@
 				{% else %}
 					<p class="justificativa">Sem justificativa</p>
 				{% endif %}
+				{% if falta.arquivo != '' %}
+					<a href="{{ falta.arquivo.url }}" download="{{ falta.arquivo.url }}">Baixar arquivo em anexo</a>
+				{% else %}
+					<p>Sem arquivo em anexo</p>
+				{% endif %}
 				<button type="submit">Dar baixa</button>
 			</form>
 			<hr>
