@@ -6,7 +6,6 @@ from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegis
 from datetime import datetime
 from pytz import timezone
 import calendar
-import datetime
 
 # Create your views here.
 
@@ -81,7 +80,7 @@ def home(request):
 
             context = {
                 "nome": funcionario.nome,
-                "alunos_que_marcou": alunos
+                "alunos_que_marcou": alunos,
             }
             return render(request, 'home_funcionario.html', context)
     return redirect('/')
@@ -190,4 +189,38 @@ def faltas(request):
     }
 
     return render(request, 'faltas.html', context)
+
+def quentinhas_extras(request):
+    dias = [
+        'Segunda-feira',
+        'Terça-feira',
+        'Quarta-feira',
+        'Quinta-feira',
+        'Sexta-feira',
+        'Sábado',
+        'Domingo'
+    ]
+
+    indece_semana = datetime.now().weekday()
+    dia_semana = dias[indece_semana]
+
+    alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
+
+
+    hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
+    hora_limite = datetime.strptime("16:30:00", "%H:%M:%S").time()
+    quentinhas_extras = 0
+    total_quentinhas = 220
+
+    if hora_atual > hora_limite:
+        quentinhas_extras = total_quentinhas - len(alunos)
+    else:
+        return redirect('/home/')
+        # Mensagem de aviso "Só possivel acessar depois de 16:30"
+
+    context = {
+        'quentinhas_extras': quentinhas_extras,
+    }
+
+    return render(request, 'quentinhas_extras.html', context)
 
