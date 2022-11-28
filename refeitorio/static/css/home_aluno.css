@@ -78,7 +78,7 @@ form {
 }
 
 
-button {
+.button_salvar {
     border: 0;
     background: transparent;
     margin: 20px auto;
@@ -92,7 +92,7 @@ button {
     font-size: 15px;
 }
 
-button:hover {
+.button_salvar:hover {
     background: #33790b;
 }
 

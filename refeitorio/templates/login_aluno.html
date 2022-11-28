@@ -1,19 +1,15 @@
-{% load bootstrap4 %}
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    {% bootstrap_css %}
+{% load bootstrap4 %}
+{% block content %}
+
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>Login</title>
+
+    
 </head>
 <body>
     <div class="container">
-        <!-- {% bootstrap_messages %}
-        {% include 'alertas.html' %} -->
         <form action="{% url 'login_aluno' %}" method="POST" class="form box" autocomplete="off">
             {% csrf_token %}
             <div class="image">
@@ -28,6 +24,4 @@
     </div>
     
 
-{% bootstrap_javascript jquery='full' %}
-</body>
-</html>
+{% endblock %}

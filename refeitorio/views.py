@@ -6,7 +6,6 @@ from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegis
 from datetime import datetime
 from pytz import timezone
 import calendar
-import datetime
 from django.contrib import messages
 
 # Create your views here.
@@ -95,10 +94,12 @@ def login_aluno(request):
     form = AlunoLogin(request.POST or None)
     
     if request.method == "POST" and form.is_valid():
-        messages.error(request, 'Login realizado com sucesso!')
+        # messages.error(request, 'teste realizado com sucesso!')
         if form.login(request) == True:
-            
+            messages.success(request, 'Login realizado com sucesso!')
             return redirect('/home/')
+        else:
+            messages.error(request, 'Login não realizado com sucesso')
         
 
     context = {
@@ -110,8 +111,11 @@ def login_funcionario(request):
     form = FuncionarioLogin(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
-        form.login(request)
-        return redirect('/home/')
+        if form.login(request) == True:
+            messages.success(request, 'Login realizado com sucesso!')
+            return redirect('/home/')
+        else:
+            messages.error(request, 'Login não realizado com sucesso')
 
     context = {
         'form': form,

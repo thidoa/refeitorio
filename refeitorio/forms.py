@@ -2,6 +2,7 @@ from django import forms
 from .models import Aluno, Funcionario
 from .encrypting import encriptar_senha
 from django.contrib import auth
+from django.contrib import messages
 
 class AlunoRegister(forms.Form):
 	nome = forms.CharField(label='Nome', required=True)
@@ -59,3 +60,7 @@ class FuncionarioLogin(forms.Form):
 			if funcionario != None:
 				auth.login(request, funcionario)
 				print('Funcionario Logado')
+				return True
+			else:
+				return False
+								

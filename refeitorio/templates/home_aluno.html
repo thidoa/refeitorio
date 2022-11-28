@@ -1,16 +1,10 @@
-{% load bootstrap4 %}
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block content %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/home_aluno.css' %}">
 	<title>Aluno</title>
 </head>
 <body>
-	<!-- {% bootstrap_messages %} -->
-	<!-- {% include 'alertas.html' %} -->
 	<header>
 		<a href="/logout/">Sair</a>
 	</header>
@@ -36,9 +30,9 @@
 					</div>
 				{% endfor %}
 			</span>
-			<button type="submit">Salvar</button>
+			<button class='button_salvar' type="submit">Salvar</button>
 		</form>
 	</main>
+	
 
-</body>
-</html>
+{% endblock %}

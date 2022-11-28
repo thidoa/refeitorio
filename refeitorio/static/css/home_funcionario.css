@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
-    color: #fff;
 }
 
 body {
@@ -118,7 +117,7 @@ th {
     box-shadow: 0 0 5px #33790b;
 }
 
-button {
+.button_salvar {
     border: 0;
     background: transparent;
     margin: 20px auto;
@@ -132,6 +131,6 @@ button {
     font-size: 15px;
 }
 
-button:hover {
+.button_salvar:hover {
     background: #33790b;
 }
