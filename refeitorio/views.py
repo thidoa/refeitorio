@@ -31,8 +31,10 @@ def home(request):
                         "quentinhas": aluno.quentinha,
                         "mensagem": "Não é mais possível alterar as marcações, volte antes das 16:30"
                     }
+                    messages.error(request, 'Não é mais possível alterar as marcações, volte antes das 16:30')
                     return render(request, 'home_aluno.html', context)
-
+                else:
+                    messages.success(request, 'Aterações realizadas com sucesso!!')
                 dias = request.POST.getlist('dias_da_semana')
 
                 for dia in aluno.quentinha.keys():
@@ -70,6 +72,7 @@ def home(request):
             alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
 
             if request.method == 'POST':
+                messages.success(request, 'Presença cadastrada com sucesso!!')
                 alunos_presentes = request.POST.getlist('alunos_presentes')
 
                 for aluno in alunos:
@@ -88,6 +91,7 @@ def home(request):
 
 def logout_view(request):
     logout(request)
+    messages.success(request, 'Logout realizado com sucesso!!')
     return redirect('/')
 
 def login_aluno(request):
@@ -96,10 +100,10 @@ def login_aluno(request):
     if request.method == "POST" and form.is_valid():
         # messages.error(request, 'teste realizado com sucesso!')
         if form.login(request) == True:
-            messages.success(request, 'Login realizado com sucesso!')
+            messages.success(request, 'Login realizado com sucesso!!')
             return redirect('/home/')
         else:
-            messages.error(request, 'Login não realizado com sucesso')
+            messages.error(request, 'Senha ou Matrícula errada!!')
         
 
     context = {
@@ -112,10 +116,10 @@ def login_funcionario(request):
 
     if request.method == "POST" and form.is_valid():
         if form.login(request) == True:
-            messages.success(request, 'Login realizado com sucesso!')
+            messages.success(request, 'Login realizado com sucesso!!')
             return redirect('/home/')
         else:
-            messages.error(request, 'Login não realizado com sucesso')
+            messages.error(request, 'Senha ou Siap errada!!')
 
     context = {
         'form': form,
