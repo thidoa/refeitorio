@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/aluno_faltas.css' %}">
+	<title>Suas faltas</title>
+</head>
+<body>
+    <div class="box">
+            <form action="{% url 'faltas' %}"  method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for falta in faltas %}
+                    <h2>{{ falta.data }}</h2>
+                    <p>Adicione a justificativa abaixo</p>
+                    <input hidden value="{{ falta.id }}" name="id_falta" type="text">
+                    {% if falta.justificativa != 'None' %}
+                        <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
+                    {% else %}
+                        <textarea placeholder="Justificativa" name="justificativa"></textarea>
+                    {% endif %}
+                    <label for="upload" id="botaoEnviar">Enviar arquivo</label>
+                    <input type="file" name="arquivo" id="upload">
+                    <hr>
+                {% endfor %}
+                <button type="submit">Salvar</button>
+            </form>
+    </div>
+    <script src="{% static 'js/aluno_faltas.js' %}"></script>
+</body>
+</html>

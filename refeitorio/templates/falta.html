@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/falta.css' %}">
+	<title>Faltas</title>
+</head>
+<body>
+	<div class="box">
+		<h3>Faltas de {{ aluno.nome }}</h3>
+		{% for falta in faltas %}
+			<h4>{{ falta.data }}</h4>
+			<form action="/faltas/{{ id }}" method="POST">
+				{% csrf_token %}
+				<p>Justificativa:</p>
+				<input hidden value="{{ falta.id }}" name="id" type="text">
+				{% if falta.justificativa != '' %}
+					<p class="justificativa">
+						{{ falta.justificativa }}
+					</p>
+				{% else %}
+					<p class="justificativa">Sem justificativa</p>
+				{% endif %}
+				{% if falta.arquivo != '' %}
+					<a href="{{ falta.arquivo.url }}" download="{{ falta.arquivo.url }}">Baixar arquivo em anexo</a>
+				{% else %}
+					<p>Sem arquivo em anexo</p>
+				{% endif %}
+				<span><button type="submit">Dar baixa</button></span>
+			</form>
+			<hr>
+		{% endfor %}
+	</div>
+</body>
+</html>

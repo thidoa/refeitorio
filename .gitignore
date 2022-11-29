@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+# Uploaded Files
+media
+total_de_quentinhas
