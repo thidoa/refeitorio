@@ -81,7 +81,7 @@ def home(request):
 
             context = {
                 "nome": funcionario.nome,
-                "alunos_que_marcou": alunos
+                "alunos_que_marcou": alunos,
             }
             return render(request, 'home_funcionario.html', context)
     return redirect('/')
@@ -196,7 +196,6 @@ def faltas(request):
                 ids = request.POST.getlist('id_falta')
                 arquivos = request.FILES.getlist('arquivo')
                 cont = 0
-
                 for id in ids:
                     falta = Falta.objects.get(id=id)
                     falta.justificativa = faltass[cont]
@@ -252,3 +251,60 @@ def faltas_aluno(request, id):
 
         return render(request, 'falta.html', context)
     return redirect('/')
+def quentinhas_extras(request):
+    dias = [
+        'Segunda-feira',
+        'Terça-feira',
+        'Quarta-feira',
+        'Quinta-feira',
+        'Sexta-feira',
+        'Sábado',
+        'Domingo'
+    ]
+    dias_uteis = [
+        'Segunda-feira',
+        'Terça-feira',
+        'Quarta-feira',
+        'Quinta-feira',
+        'Sexta-feira',
+    ]
+
+    indece_semana = datetime.now().weekday()
+    dia_semana = dias[indece_semana]
+
+    alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
+
+
+    hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
+    inicio_almoco = datetime.strptime("11:00:00", "%H:%M:%S").time()
+    fim_almoco = datetime.strptime("13:30:00", "%H:%M:%S").time()
+    quentinhas_extras = 0
+    total_quentinhas = 220
+
+    if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+        try:
+            with open('total_de_quentinhas', encoding="utf-8") as f:
+                dados = f.read().split(' ')
+        except:
+            with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
+            dados = f'{total_quentinhas - len(alunos)} {dia_semana}'.split(' ')
+        else:
+            if dados[1] != dia_semana:
+                with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                    f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
+        if request.method == 'POST' and int(dados[0]) > 0:
+            quentinhas_extras = int(dados[0]) - 1
+            with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                f.write(f'{quentinhas_extras} {dia_semana}')
+        else:
+            quentinhas_extras = int(dados[0])
+    else:
+        return redirect('/home/')
+        # Mensagem de aviso "Só possivel acessar depois de 16:30"
+
+    context = {
+        'quentinhas_extras': quentinhas_extras,
+    }
+
+    return render(request, 'quentinhas_extras.html', context)
