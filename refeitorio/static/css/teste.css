@@ -56,12 +56,22 @@ table{
 	text-align: center;
 	width: 4em;
 }
-.calendar .prev-month,
-.calendar .next-month{
+
+/* .calendar .teste{
+	border: 2px solid transparent;
+	border-radius: 50%;
+	display: inline-block;
+	height: 4em;
+	line-height: 4em;
+	text-align: center;
+	width: 4em;
+} */
+
+.calendar .prev-next-month {
 	color: gray;
 }
-.calendar .prev-month:hover,
-.calendar .next-month:hover{
+
+.calendar .prev-next-month:hover {
 	border: 2px solid gray;
 }
 .current-day{

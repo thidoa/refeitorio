@@ -28,13 +28,78 @@
 					</tr>
 				</thead>
 				<tbody id="dias">
-					{% for dia in agora_vai %}
-						{% if dia.0 == 0 %}
-							<td class="prev-month">{{ dia.1 }}</td>
+					{% for semana in mes2  %}
+
+						{% if semana.0.1 == semana_atual.0 %}
+							<tr>
+
+								<form method="POST" action="{% url 'home' %}">
+									{% csrf_token %}
+									{% for dia in semana %}
+
+										{% if dia.0 == 0 %}
+
+											<td class="prev-next-month event">{{ dia.1 }}<input class="checkmark" type="checkbox" name="dias_da_semana" value="{{ dia.1 }}" checked id="{{ dia.1 }}"></td>
+											
+										{% elif dia.0 == dia_atual %}
+											<td class="current-day event">{{ dia_atual }}<input class="checkmark" type="checkbox" name="dias_da_semana" value="{{ dia_atual }}" id="{{ dia_atual }}"></td>
+										{% else %}
+										
+											<td class="event">{{ dia.1 }}<input class="checkmark" type="checkbox" name="dias_da_semana" value="{{ dia.1 }}" id="{{ dia.1 }}"></input></td>
+											
+										{% endif %}
+
+									{% endfor %}
+									<button type="submit">Salvar</button>
+								</form>
+							</tr>
+
+							
+
+
+
+
+
+
+
+
+
+
 						{% else %}
-							<td>{{ dia.1 }}</td>
+							<tr>
+								{% for dia in semana %}
+									{% if dia.0 == 0 %}
+										
+										<td class="prev-next-month">{{ dia.1 }}</td>
+									{% elif dia.0 == dia_atual %}
+										<td class="current-day">{{ dia_atual}}</td>
+									{% else %}
+										
+										<td>{{ dia.1 }}</td>
+										
+									{% endif %}
+								{% endfor %}
+							</tr>
 						{% endif %}
 					{% endfor %}
+
+
+					<!-- {% for dia in agora_vai %}
+						{% if dia.0 == '0' %}
+							
+							<td class="prev-next-month">{{ dia.1 }}</td>
+						{% elif dia.0 == dia_atual %}
+							<td class="current-day">{{ dia_atual}}</td>
+						{% else %}
+							{% if dia.0 in semana_atual %}
+								<input class="checkmark" type="checkbox" name="dias_da_semana" value="{{ dia.1 }}" id="{{ dia.1 }}"></input> 
+								<td class="event">{{ dia.1 }}</td>
+							{% else %}
+								<td>{{ dia.1 }}</td>
+							{% endif %}
+							
+						{% endif %}
+					{% endfor %} -->
 
 					<!--{{mes}}
 					{% for semana in mes %}
