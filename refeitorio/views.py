@@ -218,7 +218,7 @@ def faltas(request):
 
                     falta.save(update_fields=['justificativa', 'arquivo'])
                     cont += 1
-
+                messages.success(request, 'Justificativas enviadas com sucesso com sucesso!!')
                 return redirect('/home/')
 
             
@@ -255,6 +255,7 @@ def faltas_aluno(request, id):
         if request.method == 'POST':
             falta = get_object_or_404(faltas, id=request.POST['id'])
             falta.delete()
+            messages.success(request, 'Falta deletada!!')
 
         context = {
             'faltas': faltas,
@@ -313,8 +314,8 @@ def quentinhas_extras(request):
         else:
             quentinhas_extras = int(dados[0])
     else:
+        messages.error(request, 'Só é possível acessar as quentinhas extras entre 11:00 e 13:30')
         return redirect('/home/')
-        # Mensagem de aviso "Só possivel acessar depois de 16:30"
 
     context = {
         'quentinhas_extras': quentinhas_extras,

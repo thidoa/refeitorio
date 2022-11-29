@@ -1,13 +1,9 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block content %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/funcionario_faltas.css' %}">
 	<title>Faltas</title>
 </head>
-<body>
 	<header>
 		<a href="/home/">Voltar</a>
 		<a href="/logout/">Sair</a>
@@ -29,5 +25,4 @@
 			</table>
 		</div>
 	</main>
-</body>
-</html>
+{% endblock %}
