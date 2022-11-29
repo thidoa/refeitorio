@@ -14,7 +14,8 @@ header {
     display: flex;
     justify-content: end;
     align-items: center;
-    height: 10vh;
+    height: 15vh;
+    /* margin: 10px; */
 }
 
 header a {
@@ -34,21 +35,24 @@ header a {
 
 header a:hover {
     background: #33790b;
+    color: #fff;
+    text-decoration: none;
 }
 
 main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     color: white;
     width: 50%;
     padding: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: #191919;
-    text-align: left;
+    text-align: center;
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     transition: .5s;
+    height: auto;
+    margin: auto;
 }
 
 h1 {
@@ -98,8 +102,8 @@ th {
 .checkmark:before {
     content: "";
     position: absolute;
-    height: 8px;
-    width: 3px;
+    height: 12px;
+    width: 6px;
     opacity: 0;
     transition: all 300ms ease-in-out;
     border-right: 3px solid #33790b;
@@ -132,4 +136,10 @@ th {
 
 .button_salvar:hover {
     background: #33790b;
+}
+
+@media only screen and (max-width: 1000px) {
+    main {
+        width: 80%;
+    }
 }
