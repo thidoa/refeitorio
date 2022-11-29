@@ -13,13 +13,17 @@
     <div class="box">
         <h1>Total de extras: <strong>{{ quentinhas_extras }}</strong></h1>
 
-        <form action=""  method="post">
+        <form action="{% url 'quentinhas_extras' %}"  method="POST">
             {% csrf_token %}
             <label for="">Nome</label>
             <input type="text" name="nome" placeholder="Nome">
             <label for="">Matrícula</label>
             <input type="text" name="matricula" placeholder="Matricula">
-            <button type="submit">Salvar</button>
+            {% if quentinhas_extras != 0 %}
+                <button type="submit">Salvar</button>
+            {% else %}
+                <button type="submit" disabled>Salvar</button>
+            {% endif %}
         </form>
     </div>
 </body>

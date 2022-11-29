@@ -200,6 +200,13 @@ def quentinhas_extras(request):
         'Sábado',
         'Domingo'
     ]
+    dias_uteis = [
+        'Segunda-feira',
+        'Terça-feira',
+        'Quarta-feira',
+        'Quinta-feira',
+        'Sexta-feira',
+    ]
 
     indece_semana = datetime.now().weekday()
     dia_semana = dias[indece_semana]
@@ -208,12 +215,29 @@ def quentinhas_extras(request):
 
 
     hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
-    hora_limite = datetime.strptime("16:30:00", "%H:%M:%S").time()
+    inicio_almoco = datetime.strptime("11:00:00", "%H:%M:%S").time()
+    fim_almoco = datetime.strptime("13:30:00", "%H:%M:%S").time()
     quentinhas_extras = 0
     total_quentinhas = 220
 
-    if hora_atual > hora_limite:
-        quentinhas_extras = total_quentinhas - len(alunos)
+    if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+        try:
+            with open('total_de_quentinhas', encoding="utf-8") as f:
+                dados = f.read().split(' ')
+        except:
+            with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
+            dados = f'{total_quentinhas - len(alunos)} {dia_semana}'.split(' ')
+        else:
+            if dados[1] != dia_semana:
+                with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                    f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
+        if request.method == 'POST' and int(dados[0]) > 0:
+            quentinhas_extras = int(dados[0]) - 1
+            with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                f.write(f'{quentinhas_extras} {dia_semana}')
+        else:
+            quentinhas_extras = int(dados[0])
     else:
         return redirect('/home/')
         # Mensagem de aviso "Só possivel acessar depois de 16:30"

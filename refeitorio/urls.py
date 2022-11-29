@@ -12,5 +12,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('teste/', views.teste, name='teste'),
     path('faltas/', views.faltas, name='faltas'),
-    path('quentinhas_extras/', views.quentinhas_extras, name='quentinhas_extras'),
+    path('home/quentinhas/extras/', views.quentinhas_extras, name='quentinhas_extras'),
 ]
