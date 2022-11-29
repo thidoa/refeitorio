@@ -252,3 +252,9 @@ def faltas_aluno(request, id):
 
         return render(request, 'falta.html', context)
     return redirect('/')
+
+def comentarios_aluno(request):
+    return render(request, 'comentarios_aluno.html')
+
+def comentarios_funcionario(request):
+    return render(request, 'comentarios_funcionario.html')
