@@ -13,7 +13,7 @@
 				{% csrf_token %}
 				<p>Justificativa:</p>
 				<input hidden value="{{ falta.id }}" name="id" type="text">
-				{% if falta.justificativa != '' %}
+				{% if falta.justificativa != None %}
 					<p class="justificativa">
 						{{ falta.justificativa }}
 					</p>

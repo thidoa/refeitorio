@@ -24,14 +24,13 @@ def home(request):
 
             if request.method == 'POST':
                 hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
-                hora_limite = datetime.strptime("16:30:00", "%H:%M:%S").time()
+                hora_limite = datetime.strptime("23:00:00", "%H:%M:%S").time()
 
                 if hora_atual > hora_limite:
                     context = {
                         "nome": aluno.nome,
                         "matricula": aluno.username,
                         "quentinhas": aluno.quentinha,
-                        "mensagem": "Não é mais possível alterar as marcações, volte antes das 16:30"
                     }
                     messages.error(request, 'Não é mais possível alterar as marcações, volte antes das 16:30')
                     return render(request, 'home_aluno.html', context)
@@ -224,6 +223,7 @@ def faltas(request):
             
             context = {
                 'faltas': faltas,
+                'tot': len(faltas)
             }
 
             return render(request, 'aluno_faltas.html', context)
@@ -315,7 +315,7 @@ def quentinhas_extras(request):
             quentinhas_extras = int(dados[0])
     else:
         messages.error(request, 'Só é possível acessar as quentinhas extras entre 11:00 e 13:30')
-        return redirect('/home/')
+        quentinhas_extras = 0
 
     context = {
         'quentinhas_extras': quentinhas_extras,

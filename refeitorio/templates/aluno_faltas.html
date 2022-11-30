@@ -5,24 +5,31 @@
 	<title>Suas faltas</title>
 </head>
 <body>
+    <header>
+        <a href="{% url 'home' %}">Voltar</a>
+    </header>
     <div class="box">
-            <form action="{% url 'faltas' %}"  method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% for falta in faltas %}
-                    <h2>{{ falta.data }}</h2>
-                    <p>Adicione a justificativa abaixo</p>
-                    <input hidden value="{{ falta.id }}" name="id_falta" type="text">
-                    {% if falta.justificativa != 'None' %}
-                        <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
-                    {% else %}
-                        <textarea placeholder="Justificativa" name="justificativa"></textarea>
-                    {% endif %}
-                    <label for="upload" id="botaoEnviar">Enviar arquivo</label>
-                    <input type="file" name="arquivo" id="upload">
-                    <hr>
-                {% endfor %}
-                <button type="submit">Salvar</button>
-            </form>
+            {% if tot != 0 %}
+                <form action="{% url 'faltas' %}"  method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for falta in faltas %}
+                        <h2>{{ falta.data }}</h2>
+                        <p>Adicione a justificativa abaixo</p>
+                        <input hidden value="{{ falta.id }}" name="id_falta" type="text">
+                        {% if falta.justificativa != None %}
+                            <textarea placeholder="Justificativa" defa name="justificativa">{{ falta.justificativa }}</textarea>
+                        {% else %}
+                            <textarea placeholder="Justificativa" name="justificativa"></textarea>
+                        {% endif %}
+                        <label for="upload" id="botaoEnviar">Enviar arquivo</label>
+                        <input type="file" name="arquivo" id="upload">
+                        <hr>
+                    {% endfor %}
+                    <button type="submit">Salvar</button>
+                </form>
+            {% else %}
+                <p>Nenhuma falta no sistema</p>
+            {% endif %}
     </div>
     <script src="{% static 'js/aluno_faltas.js' %}"></script>
 {%  endblock %}

@@ -13,11 +13,6 @@
 	<main>
 		<h1>{{ nome }}</h1>
 		<h3>{{ matricula }}</h3>
-
-		{% if mensagem != "" %}
-			<p>{{ mensagem }}</p>
-		{% endif %}
-
 		<form method="POST" action="{% url 'home' %}">
 			{% csrf_token %}
 			<span class="dias_semana">
