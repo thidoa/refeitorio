@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Aluno, Funcionario, Falta
+from .models import Aluno, Funcionario, Falta, Comentarios
 
 # Register your models here.
 
@@ -14,3 +14,7 @@ class FuncionarioAdmin(admin.ModelAdmin):
 @admin.register(Falta)
 class FaltaAdmin(admin.ModelAdmin):
 	list_display = ('aluno_faltante', 'data')
+
+@admin.register(Comentarios)
+class ComentariosAdmin(admin.ModelAdmin):
+	list_display = ('comentario', 'data')

@@ -27,3 +27,11 @@ class Falta(models.Model):
 
 	def __str__(self):
 		return self.aluno_faltante.nome
+
+class Comentarios(models.Model):
+	comentario = models.TextField(blank=False, null=True)
+	data = models.DateField(default=date.today)
+	comentador = models.ForeignKey(Aluno, on_delete=models.CASCADE, null=True)
+
+	def __str__(self):
+		return str(self.data)

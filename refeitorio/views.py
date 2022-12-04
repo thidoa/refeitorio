@@ -2,9 +2,9 @@ from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.core.files import File
-from .models import Aluno, Funcionario, Falta
+from .models import Aluno, Funcionario, Falta, Comentarios
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
-from datetime import datetime
+from datetime import datetime, date
 from pytz import timezone
 import calendar
 
@@ -253,8 +253,60 @@ def faltas_aluno(request, id):
         return render(request, 'falta.html', context)
     return redirect('/')
 
-def comentarios_aluno(request):
-    return render(request, 'comentarios_aluno.html')
+def comentarios(request):
+    usuario = request.user
 
-def comentarios_funcionario(request):
-    return render(request, 'comentarios_funcionario.html')
+    if usuario.is_authenticated:
+        dias = [
+            'Segunda-feira',
+            'Terça-feira',
+            'Quarta-feira',
+            'Quinta-feira',
+            'Sexta-feira',
+            'Sábado',
+            'Domingo'
+        ]
+        dias_uteis = [
+            'Segunda-feira',
+            'Terça-feira',
+            'Quarta-feira',
+            'Quinta-feira',
+            'Sexta-feira',
+        ]
+
+        indece_semana = datetime.now().weekday()
+        dia_semana = dias[indece_semana]
+
+        hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
+        inicio_almoco = datetime.strptime("11:00:00", "%H:%M:%S").time()
+        fim_almoco = datetime.strptime("17:30:00", "%H:%M:%S").time()
+
+        if hasattr(usuario, 'aluno'):
+            if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+                aluno = Aluno.objects.get(id=usuario.id)
+
+                try:
+                    coment = Comentarios.objects.get(comentador=aluno)
+
+                if request.method == 'POST':
+                    aluno = Aluno.objects.get(id=usuario.id)
+                    try:
+                        coment = Comentarios.objects.get(comentador=aluno)
+                    except:
+                        coment = Comentarios(comentario=request.POST['comentario'], comentador=aluno)
+                        coment.save()
+                        return redirect('/home/') 
+                    else:
+                        if date.today() == coment.data:
+                            print('Você já comentou hoje!')
+                            return redirect('/home/')
+                return render(request, 'comentarios_aluno.html')
+
+            return redirect('/')
+        elif hasattr(usuario, 'funcionario'):
+            if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+                return render(request, 'comentarios_funcionario.html')
+
+            return redirect('/')
+
+    return redirect('/')

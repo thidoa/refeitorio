@@ -9,8 +9,10 @@
 <body>
     <h1>Adicione um Comentário</h1>
 
-    <form action="">
-        <textarea name="" id=""></textarea>
+    <form action="{% url 'comentarios' %}" method="POST">
+        {% csrf_token %}
+        <label>Adicione um comentário</label>
+        <textarea name="comentario"></textarea>
         <button type="submit">Comentar</button>
     </form>
 </body>
