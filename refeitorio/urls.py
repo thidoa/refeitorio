@@ -12,7 +12,6 @@ urlpatterns = [
     path('registrar/funcionario/', views.register_funcionario, name='register_funcionario'),
     path('home/', views.home, name='home'),
     path('logout/', views.logout_view, name='logout'),
-    path('teste/', views.teste, name='teste'),
     path('home/faltas/', views.faltas, name='faltas'),
     path('faltas/<int:id>', views.faltas_aluno, name='faltas_aluno'),
     path('home/quentinhas/extras/', views.quentinhas_extras, name='quentinhas_extras'),
