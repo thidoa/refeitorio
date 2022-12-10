@@ -1,9 +1,6 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block content %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/falta.css' %}">
 	<title>Faltas</title>
 </head>
@@ -16,7 +13,7 @@
 				{% csrf_token %}
 				<p>Justificativa:</p>
 				<input hidden value="{{ falta.id }}" name="id" type="text">
-				{% if falta.justificativa != '' %}
+				{% if falta.justificativa != None %}
 					<p class="justificativa">
 						{{ falta.justificativa }}
 					</p>
@@ -33,5 +30,4 @@
 			<hr>
 		{% endfor %}
 	</div>
-</body>
-</html>
+{% endblock %}

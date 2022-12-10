@@ -11,6 +11,7 @@ header {
     justify-content: end;
     align-items: center;
     height: 10vh;
+    margin: 10px;
 }
 
 header a {
@@ -29,21 +30,24 @@ header a {
 
 header a:hover {
     background: #33790b;
+    text-decoration: none;
+    color: #fff;
 }
 
 main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     color: white;
     width: 50%;
     padding: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: #191919;
-    text-align: left;
+    text-align: center;
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     transition: .5s;
+    height: auto;
+    margin: auto;
 }
 
 h1, h3 {
@@ -78,7 +82,40 @@ form {
 }
 
 
-button {
+.checkmark {
+    cursor: pointer;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #33790b;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkmark:before {
+    content: "";
+    position: absolute;
+    height: 12px;
+    width: 6px;
+    opacity: 0;
+    transition: all 300ms ease-in-out;
+    border-right: 3px solid #33790b;
+    border-bottom: 3px solid #33790b;
+    transform: rotate(45deg);
+    top: 1px;
+}
+
+.checkmark:checked:before {
+    opacity: 1;
+}
+
+.checkmark:focus {
+    box-shadow: 0 0 5px #33790b;
+}
+
+.button_salvar {
     border: 0;
     background: transparent;
     margin: 20px auto;
@@ -92,7 +129,7 @@ button {
     font-size: 15px;
 }
 
-button:hover {
+.button_salvar:hover {
     background: #33790b;
 }
 
@@ -117,3 +154,56 @@ p {
     text-align: center;
     color: #a51d0b;
 }
+#carouselExampleCaptions {
+    width: 50%;
+    margin: 0 auto;
+    transition: .5s;
+}
+
+#carouselExampleCaptions .carousel-control-next-icon {
+    color: #33790b;
+    /* background: #33790b; */
+    background-image: url("../images/seta.png");
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+
+
+#carouselExampleCaptions .carousel-control-prev-icon {
+    color: #33790b;
+    /* background: #33790b; */
+    background-image: url("../images/seta.png");
+}
+
+@media only screen and (max-width: 1000px) {
+    main {
+        width: 80%;
+    }
+    .dias_semana {
+        flex-direction: column;
+    }
+    #carouselExampleCaptions {
+        width: 90%;
+        
+    }
+}
+
+
+
+
+#carouselExampleCaptions .carousel-control-next-icon {
+    color: #33790b;
+    /* background: #33790b; */
+    background-image: url("../images/seta.png");
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+
+
+

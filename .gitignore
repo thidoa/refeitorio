@@ -127,8 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
 # Uploaded Files
 media
-
-alunos_que_comentaram
+total_de_quentinhas

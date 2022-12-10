@@ -7,6 +7,8 @@ from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegis
 from datetime import datetime, date
 from pytz import timezone
 import calendar
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -22,17 +24,18 @@ def home(request):
 
             if request.method == 'POST':
                 hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
-                hora_limite = datetime.strptime("16:30:00", "%H:%M:%S").time()
+                hora_limite = datetime.strptime("23:00:00", "%H:%M:%S").time()
 
                 if hora_atual > hora_limite:
                     context = {
                         "nome": aluno.nome,
                         "matricula": aluno.username,
                         "quentinhas": aluno.quentinha,
-                        "mensagem": "Não é mais possível alterar as marcações, volte antes das 16:30"
                     }
+                    messages.error(request, 'Não é mais possível alterar as marcações, volte antes das 16:30')
                     return render(request, 'home_aluno.html', context)
-
+                else:
+                    messages.success(request, 'Aterações realizadas com sucesso!!')
                 dias = request.POST.getlist('dias_da_semana')
 
                 for dia in aluno.quentinha.keys():
@@ -70,6 +73,7 @@ def home(request):
             alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
 
             if request.method == 'POST':
+                messages.success(request, 'Presença cadastrada com sucesso!!')
                 alunos_presentes = request.POST.getlist('alunos_presentes')
 
                 for aluno in alunos:
@@ -81,34 +85,42 @@ def home(request):
 
             context = {
                 "nome": funcionario.nome,
-                "alunos_que_marcou": alunos
+                "alunos_que_marcou": alunos,
             }
             return render(request, 'home_funcionario.html', context)
     return redirect('/')
 
 def logout_view(request):
     logout(request)
+    messages.success(request, 'Logout realizado com sucesso!!')
     return redirect('/')
 
 def login_aluno(request):
     form = AlunoLogin(request.POST or None)
-
+    
     if request.method == "POST" and form.is_valid():
-        form.login(request)
-        return redirect('/home/')
+        # messages.error(request, 'teste realizado com sucesso!')
+        if form.login(request) == True:
+            messages.success(request, 'Login realizado com sucesso!!')
+            return redirect('/home/')
+        else:
+            messages.error(request, 'Senha ou Matrícula errada!!')
+        
 
     context = {
         'form': form,
     }
-
     return render(request, 'login_aluno.html', context)
 
 def login_funcionario(request):
     form = FuncionarioLogin(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
-        form.login(request)
-        return redirect('/home/')
+        if form.login(request) == True:
+            messages.success(request, 'Login realizado com sucesso!!')
+            return redirect('/home/')
+        else:
+            messages.error(request, 'Senha ou Siap errada!!')
 
     context = {
         'form': form,
@@ -141,47 +153,6 @@ def register_funcionario(request):
 
     return render(request, 'register_funcionario.html', context)
 
-def teste(request):
-    data = datetime.datetime.now()
-
-    dia_mes_atual = []
-    dia_calendario = []
-
-    obj = calendar.Calendar(firstweekday = 6)
-    for day in obj.itermonthdays(data.year, data.month):
-        dia_mes_atual.append(day)
-        #print(day)
-
-    data_mes = calendar.Calendar(firstweekday = 6)
-    for dia in data_mes.itermonthdates(data.year, data.month):
-        data_dia = str(dia).split('-')
-        dia_calendario.append(data_dia[-1])
-
-    mes_completo = []
-
-    for valor in range(len(dia_mes_atual)):
-        mes_completo.append([dia_mes_atual[valor], dia_calendario[valor]])
-   
-    dias_semana = []
-    semana_mes =[]
-    contador = 0
-    for dia in dia_calendario:
-        if contador < 6:
-            dias_semana.append(dia)
-            contador+=1
-        else:
-            dias_semana.append(dia)
-            semana_mes.append(dias_semana)
-            dias_semana = []
-            contador = 0
-    
-    context = {
-        'dia_mes_atual': dia_mes_atual,
-        'mes': semana_mes,
-        'agora_vai': mes_completo,
-    }
-    return render(request, 'teste.html', context)
-
 def faltas(request):
     usuario = request.user
 
@@ -196,7 +167,6 @@ def faltas(request):
                 ids = request.POST.getlist('id_falta')
                 arquivos = request.FILES.getlist('arquivo')
                 cont = 0
-
                 for id in ids:
                     falta = Falta.objects.get(id=id)
                     falta.justificativa = faltass[cont]
@@ -206,12 +176,13 @@ def faltas(request):
 
                     falta.save(update_fields=['justificativa', 'arquivo'])
                     cont += 1
-
+                messages.success(request, 'Justificativas enviadas com sucesso com sucesso!!')
                 return redirect('/home/')
 
             
             context = {
                 'faltas': faltas,
+                'tot': len(faltas)
             }
 
             return render(request, 'aluno_faltas.html', context)
@@ -243,6 +214,7 @@ def faltas_aluno(request, id):
         if request.method == 'POST':
             falta = get_object_or_404(faltas, id=request.POST['id'])
             falta.delete()
+            messages.success(request, 'Falta deletada!!')
 
         context = {
             'faltas': faltas,
@@ -256,7 +228,7 @@ def faltas_aluno(request, id):
 def comentarios(request):
     usuario = request.user
 
-    if usuario.is_authenticated:
+    if usuario.is_authenticated and hasattr(usuario, 'funcionario'):
         dias = [
             'Segunda-feira',
             'Terça-feira',
@@ -277,7 +249,6 @@ def comentarios(request):
 
         indece_semana = datetime.now().weekday()
         dia_semana = dias[indece_semana]
-
         hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
         inicio_almoco = datetime.strptime("11:00:00", "%H:%M:%S").time()
         fim_almoco = datetime.strptime("17:30:00", "%H:%M:%S").time()
@@ -312,4 +283,39 @@ def comentarios(request):
 
             return redirect('/')
 
+def quentinhas_extras(request):
+        alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
+        hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
+        inicio_almoco = datetime.strptime("11:00:00", "%H:%M:%S").time()
+        fim_almoco = datetime.strptime("13:30:00", "%H:%M:%S").time()
+        quentinhas_extras = 0
+        total_quentinhas = 220
+
+        if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+            try:
+                with open('total_de_quentinhas', encoding="utf-8") as f:
+                    dados = f.read().split(' ')
+            except:
+                with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                    f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
+                dados = f'{total_quentinhas - len(alunos)} {dia_semana}'.split(' ')
+            else:
+                if dados[1] != dia_semana:
+                    with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                        f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
+            if request.method == 'POST' and int(dados[0]) > 0:
+                quentinhas_extras = int(dados[0]) - 1
+                with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
+                    f.write(f'{quentinhas_extras} {dia_semana}')
+            else:
+                quentinhas_extras = int(dados[0])
+        else:
+            messages.error(request, 'Só é possível acessar as quentinhas extras entre 11:00 e 13:30')
+            quentinhas_extras = 0
+
+        context = {
+            'quentinhas_extras': quentinhas_extras,
+        }
+
+        return render(request, 'quentinhas_extras.html', context)
     return redirect('/')

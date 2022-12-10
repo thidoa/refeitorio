@@ -1,9 +1,6 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block content %}
 	<link rel="stylesheet" href="{% static 'css/home_funcionario.css' %}">
 	<title>Funcionário</title>
 	
@@ -12,6 +9,7 @@
 	<header>
 		<a href="{% url 'faltas' %}">Gerenciar faltas</a>
 		<a href="{% url 'comentarios' %}">Comentários</a>
+		<a href="{% url 'quentinhas_extras' %}" target="_blank">Quentinhas extras</a>
 		<a href="/logout/">Sair</a>
 	</header>
 	<main>
@@ -34,9 +32,8 @@
 					</tr>
 				{% endfor %}
 			  </table>
-			  <button type="submit">Salvar</button>
+			  <button class='button_salvar' type="submit">Salvar</button>
 			</form>
 		</div>
 	</main>
-</body>
-</html>
+{% endblock %}
