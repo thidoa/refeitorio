@@ -154,6 +154,29 @@ p {
     text-align: center;
     color: #a51d0b;
 }
+#carouselExampleCaptions {
+    width: 50%;
+    margin: 0 auto;
+    transition: .5s;
+}
+
+#carouselExampleCaptions .carousel-control-next-icon {
+    color: #33790b;
+    /* background: #33790b; */
+    background-image: url("../images/seta.png");
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+
+
+#carouselExampleCaptions .carousel-control-prev-icon {
+    color: #33790b;
+    /* background: #33790b; */
+    background-image: url("../images/seta.png");
+}
 
 @media only screen and (max-width: 1000px) {
     main {
@@ -162,4 +185,25 @@ p {
     .dias_semana {
         flex-direction: column;
     }
+    #carouselExampleCaptions {
+        width: 90%;
+        
+    }
 }
+
+
+
+
+#carouselExampleCaptions .carousel-control-next-icon {
+    color: #33790b;
+    /* background: #33790b; */
+    background-image: url("../images/seta.png");
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+
+
+
