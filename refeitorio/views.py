@@ -272,6 +272,7 @@ def comentarios(request):
             'Quarta-feira',
             'Quinta-feira',
             'Sexta-feira',
+            'Sábado'
         ]
 
         indece_semana = datetime.now().weekday()
@@ -284,28 +285,30 @@ def comentarios(request):
         if hasattr(usuario, 'aluno'):
             if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
                 aluno = Aluno.objects.get(id=usuario.id)
+                coments = Comentarios.objects.filter(comentador=aluno, data=date.today())
 
-                try:
-                    coment = Comentarios.objects.get(comentador=aluno)
+                if not coments:
+                    if request.method == 'POST':
+                        coment = request.POST['comentario']
+                        novo_coment = Comentarios(comentador=aluno, comentario=coment)
+                        novo_coment.save()
+                        return redirect('/home/')
+                    return render(request, 'comentarios_aluno.html')
+                else:
+                    return redirect('/home/')
 
                 if request.method == 'POST':
-                    aluno = Aluno.objects.get(id=usuario.id)
-                    try:
-                        coment = Comentarios.objects.get(comentador=aluno)
-                    except:
-                        coment = Comentarios(comentario=request.POST['comentario'], comentador=aluno)
-                        coment.save()
-                        return redirect('/home/') 
-                    else:
-                        if date.today() == coment.data:
-                            print('Você já comentou hoje!')
-                            return redirect('/home/')
+                    pass
                 return render(request, 'comentarios_aluno.html')
 
             return redirect('/')
         elif hasattr(usuario, 'funcionario'):
             if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
-                return render(request, 'comentarios_funcionario.html')
+                coments = Comentarios.objects.filter(data=date.today())
+                context = {
+                    'comentarios': coments
+                }
+                return render(request, 'comentarios_funcionario.html', context)
 
             return redirect('/')
 

@@ -8,18 +8,40 @@
 body {
     background: #2b2b2b;
     width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
     color: #fff;
-
     font-size: 16px;
 }
 
+header {
+    padding: 20px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 10vh;
+}
+
+header a {
+    border: 0;
+    background: transparent;
+    text-align: center;
+    border: 2px solid #33790b;
+    padding: 14px 40px;
+    outline: none;
+    color: #fff;
+    border-radius: 15px;
+    transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 10px;
+}
+
+header a:hover {
+    background: #33790b;
+}
+
 h1 {
+    display: flex;
+    justify-content: center;
     margin: 20px;
 }
 
@@ -60,8 +82,7 @@ main.cards section.card h3 {
 
 main.cards section.card span {
     font-weight: 300;
-    max-width: 240px;
-    font-size: 80%;
+    text-align: justify;
     margin-bottom: 16px;
 }
 

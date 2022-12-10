@@ -9,33 +9,15 @@
     <title>Comentários</title>
 </head>
 <body>
-    <h1>comentários do dia!</h1>
+    <header>
+        <a href="{% url 'home' %}">Voltar</a>
+    </header>
+    <h1>Comentários do dia!</h1>
     <main class="cards">
-        
         <section class="card">
-            <h3>About us.</h3>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        </section>
-        <section class="card">
-            <h3>About us.</h3>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        </section>
-        <section class="card">
-            <h3>About us.</h3>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elitasdasdasdasdas
-                dasdasdasasdasdasdasdas.</span>
-        </section>
-        <section class="card">
-            <h3>About us.</h3>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        </section>
-        <section class="card">
-            <h3>About us.</h3>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-        </section>
-        <section class="card">
-            <h3>About us.</h3>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+            {% for comentario in comentarios %}
+                <span>{{ comentario.comentario }}</span>
+            {% endfor %}
         </section>
     </main>
 </body>
