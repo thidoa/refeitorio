@@ -14,6 +14,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('home/faltas/', views.faltas, name='faltas'),
     path('faltas/<int:id>', views.faltas_aluno, name='faltas_aluno'),
-    path('home/comentarios/', views.comentarios, name='comentarios')
+    path('home/comentarios/', views.comentarios, name='comentarios'),
     path('home/quentinhas/extras/', views.quentinhas_extras, name='quentinhas_extras'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
