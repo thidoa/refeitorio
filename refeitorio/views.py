@@ -4,11 +4,9 @@ from django.contrib.auth import logout
 from django.core.files import File
 from .models import Aluno, Funcionario, Falta, Comentarios
 from .forms import AlunoLogin, FuncionarioLogin, AlunoRegister, FuncionarioRegister
-from datetime import datetime, date
-from pytz import timezone
-import calendar
+from datetime import date
+from tempo import tempo
 from django.contrib import messages
-
 
 # Create your views here.
 
@@ -23,10 +21,7 @@ def home(request):
             aluno = Aluno.objects.get(id=usuario.id)
 
             if request.method == 'POST':
-                hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
-                hora_limite = datetime.strptime("23:00:00", "%H:%M:%S").time()
-
-                if hora_atual > hora_limite:
+                if tempo.hora_atual() > tempo.hora_limite_marcacoes():
                     context = {
                         "nome": aluno.nome,
                         "matricula": aluno.username,
@@ -57,20 +52,7 @@ def home(request):
             return render(request, 'home_aluno.html', context)
         elif hasattr(usuario, 'funcionario'):
             funcionario = Funcionario.objects.get(id=usuario.id)
-            dias = [
-                'Segunda-feira',
-                'Terça-feira',
-                'Quarta-feira',
-                'Quinta-feira',
-                'Sexta-feira',
-                'Sábado',
-                'Domingo'
-            ]
-
-            indece_semana = datetime.now().weekday()
-            dia_semana = dias[indece_semana]
-
-            alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
+            alunos = Aluno.objects.filter(quentinha__contains={f'{tempo.dia_de_hoje()}': '1'})
 
             if request.method == 'POST':
                 messages.success(request, 'Presença cadastrada com sucesso!!')
@@ -227,35 +209,9 @@ def faltas_aluno(request, id):
 
 def comentarios(request):
     usuario = request.user
-
     if usuario.is_authenticated:
-        dias = [
-            'Segunda-feira',
-            'Terça-feira',
-            'Quarta-feira',
-            'Quinta-feira',
-            'Sexta-feira',
-            'Sábado',
-            'Domingo'
-        ]
-        dias_uteis = [
-            'Segunda-feira',
-            'Terça-feira',
-            'Quarta-feira',
-            'Quinta-feira',
-            'Sexta-feira',
-            'Sábado',
-            'Domingo'
-        ]
-
-        indece_semana = datetime.now().weekday()
-        dia_semana = dias[indece_semana]
-        hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
-        inicio_almoco = datetime.strptime("08:00:00", "%H:%M:%S").time()
-        fim_almoco = datetime.strptime("23:00:00", "%H:%M:%S").time()
-
         if hasattr(usuario, 'aluno'):
-            if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+            if tempo.dia_util() and (tempo.hora_atual() >= tempo.inicio_almoco() and tempo.hora_atual() <= tempo.fim_almoco()):
                 aluno = Aluno.objects.get(id=usuario.id)
                 coments = Comentarios.objects.filter(comentador=aluno, data=date.today())
 
@@ -268,7 +224,7 @@ def comentarios(request):
                     return render(request, 'comentarios_aluno.html')
             return redirect('/home/')
         elif hasattr(usuario, 'funcionario'):
-            if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+            if tempo.dia_util() and (tempo.hora_atual() >= tempo.inicio_almoco() and tempo.hora_atual() <= tempo.fim_almoco()):
                 coments = Comentarios.objects.filter(data=date.today())
                 context = {
                     'comentarios': coments
@@ -280,32 +236,28 @@ def comentarios(request):
 
 def quentinhas_extras(request):
     usuario = request.user
-
     if usuario.is_authenticated:
         if hasattr(usuario, 'funcionario'):
-            alunos = Aluno.objects.filter(quentinha__contains={f'{dia_semana}': '1'})
-            hora_atual = datetime.now(timezone('America/Sao_Paulo')).time()
-            inicio_almoco = datetime.strptime("11:00:00", "%H:%M:%S").time()
-            fim_almoco = datetime.strptime("13:30:00", "%H:%M:%S").time()
+            alunos = Aluno.objects.filter(quentinha__contains={f'{tempo.dia_de_hoje()}': '1'})
             quentinhas_extras = 0
             total_quentinhas = 220
 
-            if dia_semana in dias_uteis and (hora_atual >= inicio_almoco and hora_atual <= fim_almoco):
+            if tempo.dia_util() and (tempo.hora_atual() >= tempo.inicio_almoco() and tempo.hora_atual() <= tempo.fim_almoco()):
                 try:
                     with open('total_de_quentinhas', encoding="utf-8") as f:
                         dados = f.read().split(' ')
                 except:
                     with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
-                        f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
-                        dados = f'{total_quentinhas - len(alunos)} {dia_semana}'.split(' ')
+                        f.write(f'{total_quentinhas - len(alunos)} {tempo.dia_de_hoje()}')
+                        dados = f'{total_quentinhas - len(alunos)} {tempo.dia_de_hoje()}'.split(' ')
                 else:
                     if dados[1] != dia_semana:
                         with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
-                            f.write(f'{total_quentinhas - len(alunos)} {dia_semana}')
+                            f.write(f'{total_quentinhas - len(alunos)} {tempo.dia_de_hoje()}')
                 if request.method == 'POST' and int(dados[0]) > 0:
                     quentinhas_extras = int(dados[0]) - 1
                     with open('total_de_quentinhas', 'w', encoding="utf-8") as f:
-                        f.write(f'{quentinhas_extras} {dia_semana}')
+                        f.write(f'{quentinhas_extras} {tempo.dia_de_hoje()}')
                 else:
                     quentinhas_extras = int(dados[0])
             else:
