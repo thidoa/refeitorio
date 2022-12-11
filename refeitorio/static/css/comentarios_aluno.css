@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
 
 body {
     margin: 0;
@@ -14,7 +19,6 @@ header {
     justify-content: end;
     align-items: center;
     height: 10vh;
-    margin: 10px;
 }
 
 header a {
@@ -29,12 +33,18 @@ header a {
     transition: 0.25s;
     cursor: pointer;
     text-decoration: none;
+    margin: 10px;
 }
 
 header a:hover {
     background: #33790b;
     text-decoration: none;
-    color: #fff;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
 }
 
 .box {
@@ -51,14 +61,14 @@ header a:hover {
     margin: auto;
 }
 
-.box h2 {
+.box h1 {
     color: #fff;
     font-size: 24px;
     width: 100%;
     text-align: center;
 }
 
-.box p {
+.box label {
     width: 100%;
 }
 
@@ -105,14 +115,6 @@ textarea::placeholder {
     color: #fff;
 }
 
-.box hr {
-    width: 100%;
-    opacity: .25;
-    border: 1px solid #33790b;
-    text-align: center;
-    margin: 40px auto;
-}
-
 .box button {
     border: 0;
     background: transparent;
@@ -130,25 +132,4 @@ textarea::placeholder {
 
 .box button:hover {
     background: #33790b;
-}
-
-.box input[type="file"] {
-    display: none;
-}
-
-#botaoEnviar {
-    background: transparent;
-    outline: none;
-    color: #fff;
-    transition: 0.25s;
-    cursor: pointer;
-    border: 2px solid #33790b;
-    padding: 7px 20px;
-    margin: 20px;
-}
-
-@media only screen and (max-width: 1000px) {
-    .box {
-        width: 90%;
-    }
 }

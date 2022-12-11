@@ -244,7 +244,8 @@ def comentarios(request):
             'Quarta-feira',
             'Quinta-feira',
             'Sexta-feira',
-            'Sábado'
+            'Sábado',
+            'Domingo'
         ]
 
         indece_semana = datetime.now().weekday()

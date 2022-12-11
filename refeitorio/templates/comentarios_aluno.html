@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/comentarios_aluno.css' %}">
     <title>Comentário</title>
 </head>
 <body>
-    <h1>Adicione um Comentário</h1>
+    <header>
+        <a href="{% url 'home' %}">Voltar</a>
+    </header>
 
-    <form action="{% url 'comentarios' %}" method="POST">
-        {% csrf_token %}
-        <label>Adicione um comentário</label>
-        <textarea name="comentario"></textarea>
-        <button type="submit">Comentar</button>
-    </form>
+    <div class="box">
+        <h1>Adicione um Comentário</h1>
+
+        <form action="{% url 'comentarios' %}" method="POST">
+            {% csrf_token %}
+            <label>Escreva abaixo o que você achou do almoço de hoje. Não se preocupe os comentários são anônimos!</label>
+            <textarea name="comentario"></textarea>
+            <button type="submit">Comentar</button>
+        </form>
+    </div>
 </body>
 </html>
+{% endblock %}
