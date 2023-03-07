@@ -2,7 +2,7 @@
 Esse é um projeto de estudos que foi desenvolvido para automatizar processos relativos ao refeitório do IFPB campus Patos. Todo o projeto foi desenvolvido usando o framework Django + Bootstrap. 
 
 ## Requisitos
-- Python 3.8+ (Não suporta Python 3.11)
+- Python 3.8+
 - Banco de dados MySQL/MariaDB
 - Git
 
